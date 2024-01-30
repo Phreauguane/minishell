@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: larz <larz@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 16:10:01 by larz              #+#    #+#             */
-/*   Updated: 2024/01/29 18:29:23 by larz             ###   ########.fr       */
+/*   Updated: 2024/01/30 18:03:34 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char	*get_word(char **s)
 			(*s)++;
 			return (word);
 		}
-		else if (**s == '\0')
+		else if (**s == '\0' || **s == '>' || **s == '<' || **s == '|')
 			return (word);
 		else
 		{
@@ -55,18 +55,55 @@ char	*get_word(char **s)
 	return (word);
 }
 
-t_command	parse(const char *str)
+t_pipeline	*parse(const char *str)
 {
 	char		*s;
-	t_command	cmd;
-	cmd.dir = NULL;
-	cmd.in = 0;
-	cmd.out = 1;
-	cmd.prm	= NULL;
+	t_pipeline	*ppl;
+	int			state;
+	char		*word;
+	int			rdr;
 
+	ppl = NULL;
+	state = STATE_CMD;
+	rdr = -1;
 	s = (char *)str;
-	cmd.cmd = get_word(&s);
+	add_ppl(&ppl)->cmd = get_word(&s);
 	while (*s)
-		add_prm(&(cmd.prm), get_word(&s));
-	return (cmd);
+	{
+		word = get_word(&s);
+		if (word == NULL)
+		{
+			if (*s == '|')
+				state = STATE_PIP;
+			if (*s == '<' && *(s + 1) == '<')
+				rdr = RDR_HERE_DOC;
+			else if (*s == '<')
+				rdr = RDR_IN;
+			if (*s == '>' && *(s + 1) == '>')
+				rdr = RDR_APPEND;
+			else if (*s == '>')
+				rdr = RDR_OUT;
+		}
+		else
+		{
+			if (state == STATE_CMD || state == STATE_PRM)
+			{
+				state = STATE_PRM;
+				add_prm(&(get_last(ppl)->prm), word);
+			}
+			if (state == STATE_FIL)
+			{
+				state = STATE_PRM;
+			}
+			if (state == STATE_RDR)
+			{
+				state = STATE_FIL;
+			}
+			if (state == STATE_PIP)
+			{
+				state = STATE_CMD;
+			}
+		}
+	}
+	return (ppl);
 }
