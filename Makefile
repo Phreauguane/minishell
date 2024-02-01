@@ -8,7 +8,10 @@ SRC_DIR		=	src/
 
 FILES		=	main.c		\
 				parsing.c	\
-				prm.c
+				prm.c		\
+				pipeline.c	\
+				execute.c	\
+				run.c
 
 SRC			=	$(addprefix $(SRC_DIR),$(FILES))
 
@@ -25,7 +28,12 @@ all		:	lib
 	$(CC) -o $(NAME) $(SRC) $(LIBFT_LIB) $(INCLUDE) $(LIB)
 	@echo "\033[1;32m$(NAME) created"
 
-lib:
+valgrind:	lib
+	@echo "\033[0;33m\nCOMPILING $(NAME)"
+	$(CC) -g3 -o $(NAME) $(SRC) $(LIBFT_LIB) $(INCLUDE) $(LIB)
+	@echo "\033[1;32m$(NAME) created"
+
+lib		:
 	@echo "\033[0;33m\nCOMPILING $(LIBFT_PATH)"
 	@make -C $(LIBFT_PATH)
 	@echo "\033[1;32m$(LIBFT_FILE) created"
