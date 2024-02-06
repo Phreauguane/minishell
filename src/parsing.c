@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
+/*   By: larz <larz@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 16:10:01 by larz              #+#    #+#             */
-/*   Updated: 2024/02/01 18:40:02 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/02/06 16:52:20 by larz             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,6 @@ t_pipeline	*parse(const char *str)
 
 	ppl = NULL;
 	s = (char *)str;
-	if (str == NULL)
-		ft_printf("exit\n");
-	if (str == NULL)
-		exit (0);
 	add_ppl(&ppl)->cmd = get_word(&s);
 	while (*s)
 		add_prm(&(get_last(ppl)->prm), get_word(&s));

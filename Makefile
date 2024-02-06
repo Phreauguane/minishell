@@ -11,7 +11,8 @@ FILES		=	main.c		\
 				prm.c		\
 				pipeline.c	\
 				execute.c	\
-				run.c
+				run.c		\
+				input.c
 
 SRC			=	$(addprefix $(SRC_DIR),$(FILES))
 

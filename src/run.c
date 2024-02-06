@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
+/*   By: larz <larz@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 17:02:19 by jde-meo           #+#    #+#             */
-/*   Updated: 2024/02/01 18:36:52 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/02/06 17:40:40 by larz             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int run(t_pipeline **ppl, char **envp)
 	if (child1 < 0)
 		return (-1);
 	if (child1 == 0)
-		execute(ppl, 0, 1, envp);
+		execute(ppl, envp);
 	waitpid(child1, &stat1, 0);
     return (0);
 }

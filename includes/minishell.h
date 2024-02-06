@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
+/*   By: larz <larz@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:30:38 by larz              #+#    #+#             */
-/*   Updated: 2024/02/01 18:09:35 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/02/06 18:49:59 by larz             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,28 +36,27 @@
 # define RDR_APPEND		2
 # define RDR_HERE_DOC	3
 
-# define DEF "\033[0m"
-# define RED "\033[0;31m"
-# define GREEN "\033[0;32m"
-# define YELLOW "\033[0;33m"
-# define BLUE "\033[0;34m"
-# define PURPLE "\033[0;35m"
-# define CYAN "\033[0;36m"
-# define WHITE "\033[0;37m"
-# define BOLD_RED "\033[1;31m"
-# define BOLD_GREEN "\033[1;32m"
-# define BOLD_YELLOW "\033[1;33m"
-# define BOLD_BLUE "\033[1;34m"
-# define BOLD_PURPLE "\033[1;35m"
-# define BOLD_CYAN "\033[1;36m"
-# define BOLD_WHITE "\033[1;37m"
+# define DEF "\001\033[0m\002"
+# define RED "\001\033[0;31m\002"
+# define GREEN "\001\033[0;32m\002"
+# define YELLOW "\001\033[0;33m\002"
+# define BLUE "\001\033[0;34m\002"
+# define PURPLE "\001\033[0;35m\002"
+# define CYAN "\001\033[0;36m\002"
+# define WHITE "\001\033[0;37m\002"
+# define BOLD_RED "\001\033[1;31m\002"
+# define BOLD_GREEN "\001\033[1;32m\002"
+# define BOLD_YELLOW "\001\033[1;33m\002"
+# define BOLD_BLUE "\001\033[1;34m\002"
+# define BOLD_PURPLE "\001\033[1;35m\002"
+# define BOLD_CYAN "\001\033[1;36m\002"
+# define BOLD_WHITE "\001\033[1;37m\002"
 
 typedef	struct s_prm
 {
 	char			*str;
 	struct s_prm	*next;
 }	t_prm;
-
 
 typedef struct s_pipeline
 {
@@ -81,9 +80,12 @@ void		free_ppl(t_pipeline **ppl);
 t_pipeline	*get_last(t_pipeline *ppl);
 
 /*	EXECUTE.C	*/
-void		execute(t_pipeline **ppl, int ifd, int ofd, char **envp);
+void		execute(t_pipeline **ppl, char **envp);
 
 /*	RUN.C		*/
 int 		run(t_pipeline **ppl, char **envp);
+
+/*	INPUT.C		*/
+char 		*build_input(char **envp);
 
 #endif

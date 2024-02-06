@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
+/*   By: larz <larz@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 16:36:08 by jde-meo           #+#    #+#             */
-/*   Updated: 2024/02/01 17:51:52 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/02/06 17:41:35 by larz             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,13 +87,13 @@ char    **build_prms(t_pipeline *ppl)
     return (tab);
 }
 
-void	execute(t_pipeline **ppl, int ifd, int ofd, char **envp)
+void	execute(t_pipeline **ppl, char **envp)
 {
 	char	**cmd_args;
 	char	*exec;
 
-	dup2(ifd, STDIN_FILENO);
-	dup2(ofd, STDOUT_FILENO);
+	dup2((*ppl)->fd_in, STDIN_FILENO);
+	dup2((*ppl)->fd_out, STDOUT_FILENO);
 	if ((*ppl)->cmd == NULL)
 		exit(0);
 	cmd_args = build_prms(*ppl);
