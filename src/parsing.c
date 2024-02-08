@@ -6,7 +6,7 @@
 /*   By: larz <larz@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 16:10:01 by larz              #+#    #+#             */
-/*   Updated: 2024/02/06 16:52:20 by larz             ###   ########.fr       */
+/*   Updated: 2024/02/08 19:06:54 by larz             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ char	*get_word(char **s)
 	char	*word;
 
 	word = NULL;
+	while (ft_isspace(**s))
+		(*s)++;
 	while (**s)
 	{
 		if (**s == '\"')
@@ -55,15 +57,57 @@ char	*get_word(char **s)
 	return (word);
 }
 
+void	read_data(t_pipeline **ppl, char **s, int *mode)
+{
+	if (*mode == MODE_NEW_CMD)
+	{
+		get_last(*ppl)->cmd = get_word(s);
+		*mode = MODE_CMD_PRM;
+	}
+	if (*mode == MODE_CMD_PRM)
+		add_prm(&(get_last(*ppl)->prm), get_word(s));
+}
+
+int	handle_parsing(t_pipeline **ppl, char **s, int *mode)
+{
+	int	pipe_fd[2];
+	
+	while (ft_isspace(**s))
+		(*s)++;
+	if (**s == '|')
+	{
+		if (*mode == MODE_NEW_CMD)
+			exit_handler("parsing errorn near token |", NULL, 0, 2);
+		pipe(pipe_fd);
+		get_last(*ppl)->fd_out = pipe_fd[1];
+		add_ppl(ppl);
+		get_last(*ppl)->fd_in = pipe_fd[0];
+		*mode = MODE_NEW_CMD;
+		(*s)++;
+	}
+	if (**s == '>' && *(*s + 1) == '>')
+		redirect_out_app(ppl, s, *mode);
+	else if (**s == '>')
+		redirect_out_normal(ppl, s, *mode);
+	if (**s == '<' && *(*s + 1) == '<')
+		redirect_in_normal(ppl, s, *mode); /*replace with here doc*/
+	else if (**s == '<')
+		redirect_in_normal(ppl, s, *mode);
+	read_data(ppl, s, mode);
+	return (0);
+}
+
 t_pipeline	*parse(const char *str)
 {
 	char		*s;
 	t_pipeline	*ppl;
+	int			mode;
 
 	ppl = NULL;
 	s = (char *)str;
-	add_ppl(&ppl)->cmd = get_word(&s);
+	mode = MODE_NEW_CMD;
+	add_ppl(&ppl);
 	while (*s)
-		add_prm(&(get_last(ppl)->prm), get_word(&s));
+		handle_parsing(&ppl, &s, &mode);
 	return (ppl);
 }

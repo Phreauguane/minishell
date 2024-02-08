@@ -6,7 +6,7 @@
 /*   By: larz <larz@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 17:21:37 by larz              #+#    #+#             */
-/*   Updated: 2024/02/06 17:59:23 by larz             ###   ########.fr       */
+/*   Updated: 2024/02/08 19:07:20 by larz             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static char	*get_folder(char **envp)
 	if (pipe(pipe_fd) < 0)
 		return (NULL);
 	ppl->fd_out = pipe_fd[1];
-	run(&ppl, envp);
+	run(ppl, envp);
 	line = get_next_line(pipe_fd[0]);
 	free_ppl(&ppl);
 	close(pipe_fd[1]);
@@ -45,7 +45,7 @@ char *build_input(char **envp)
 	if (pipe(pipe_fd) < 0)
 		return (NULL);
 	ppl->fd_out = pipe_fd[1];
-	run(&ppl, envp);
+	run(ppl, envp);
 	line = get_next_line(pipe_fd[0]);
 	out = str_adds(out, BOLD_PURPLE"@", ft_strlen(BOLD_PURPLE" | "));
 	out = str_adds(out, line, ft_strlen(line) - 1);

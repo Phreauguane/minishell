@@ -12,7 +12,8 @@ FILES		=	main.c		\
 				pipeline.c	\
 				execute.c	\
 				run.c		\
-				input.c
+				input.c		\
+				redirect.c
 
 SRC			=	$(addprefix $(SRC_DIR),$(FILES))
 

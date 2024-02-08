@@ -6,7 +6,7 @@
 /*   By: larz <larz@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 16:36:08 by jde-meo           #+#    #+#             */
-/*   Updated: 2024/02/06 17:41:35 by larz             ###   ########.fr       */
+/*   Updated: 2024/02/08 20:14:27 by larz             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,33 +75,35 @@ char    **build_prms(t_pipeline *ppl)
     while (p && ++size >= 0)
         p = p->next;
     tab = malloc(sizeof(char *) * (size + 2));
-    tab[size] = NULL;
+    tab[size + 1] = NULL;
     size = 0;
     p = ppl->prm;
 	tab[0] = ppl->cmd;
-    while (p && ++size >= 0)
+    while (p)
     {
-        tab[size] = p->str;
+        tab[++size] = p->str;
         p = p->next;
     }
     return (tab);
 }
 
-void	execute(t_pipeline **ppl, char **envp)
+void	execute(t_pipeline *ppl, char **envp)
 {
 	char	**cmd_args;
 	char	*exec;
 
-	dup2((*ppl)->fd_in, STDIN_FILENO);
-	dup2((*ppl)->fd_out, STDOUT_FILENO);
-	if ((*ppl)->cmd == NULL)
+	dup2(ppl->fd_in, STDIN_FILENO);
+	dup2(ppl->fd_out, STDOUT_FILENO);
+	if (ppl->fd_in != 0)
+		close(ppl->fd_in);
+	if (ppl->fd_out != 1)
+		close(ppl->fd_out);
+	if (ppl->cmd == NULL)
 		exit(0);
-	cmd_args = build_prms(*ppl);
-	exec = get_exec((*ppl)->cmd, envp);
-	if (execve(exec, cmd_args, envp) == -1)
-	{
-		ft_putstr_fd("minishell: command not found: ", STDERR_FILENO);
-		ft_putendl_fd(exec, STDERR_FILENO);
-		exit(-1);
-	}
+	cmd_args = build_prms(ppl);
+	exec = get_exec(ppl->cmd, envp);
+	//write(2, "Executing command\n", 19);
+	execve(exec, cmd_args, envp);
+	//write(2, "Done 2!\n", 8);
+	exit_handler("command not found", exec, 0, -1);
 }

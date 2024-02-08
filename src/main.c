@@ -6,7 +6,7 @@
 /*   By: larz <larz@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:29:08 by larz              #+#    #+#             */
-/*   Updated: 2024/02/06 17:38:17 by larz             ###   ########.fr       */
+/*   Updated: 2024/02/08 19:59:30 by larz             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,18 +53,29 @@ int	check_input(char *line)
 	return (1);
 }
 
+void	exit_handler(char *msg, char *details, int free_msg, int code)
+{
+	ft_printf(strerror(errno));
+	if (msg && details)
+		ft_printf("\nminishell: %s: %s\n", msg, details);
+	else if (msg)
+		ft_printf("\nminishell: %s\n", msg);
+	if (free_msg && msg)
+		free(msg);
+	exit(code);
+}
+
 int	main(int ac, char **av, char **envp)
 {
 	int			stdin_bk;
 	char		*line;
 	t_pipeline	*ppl;
+	t_pipeline	*p;
 
-	(void)ac;
-	(void)av;
 	g_sig = -1;
 	stdin_bk = dup(STDIN_FILENO);
 	config_signals();
-	while (1)
+	while ((ac && av) || 1)
 	{
 		line = readline(build_input(envp));
 		dup2(stdin_bk, STDIN_FILENO);
@@ -73,6 +84,12 @@ int	main(int ac, char **av, char **envp)
 		ppl = parse(line);
 		ft_printf(BOLD_PURPLE);
 		free(line);
-		run(&ppl, envp);
+		p = ppl;
+		while (p)
+		{
+			dup2(stdin_bk, STDIN_FILENO);
+			run(p, envp);
+			p = p->next;
+		}
 	}
 }

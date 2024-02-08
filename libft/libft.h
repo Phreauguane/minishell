@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jde-meo <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: larz <larz@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 20:38:10 by jde-meo           #+#    #+#             */
-/*   Updated: 2023/10/31 00:32:23 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/02/08 17:18:23 by larz             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,5 +105,6 @@ char			*get_next_line(int fd);
 char			*str_addc(char *str, char c);
 int				stchr(char *s, char c);
 char			*str_adds(char *str, char *s, size_t src_len);
+int				ft_isspace(char c);
 
 #endif

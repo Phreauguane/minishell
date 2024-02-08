@@ -6,7 +6,7 @@
 /*   By: larz <larz@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 20:38:10 by jde-meo           #+#    #+#             */
-/*   Updated: 2024/01/29 17:45:48 by larz             ###   ########.fr       */
+/*   Updated: 2024/02/08 17:18:36 by larz             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,5 +105,6 @@ char			*get_next_line(int fd);
 char			*str_addc(char *str, char c);
 int				stchr(char *s, char c);
 char			*str_adds(char *str, char *s, size_t src_len);
+int				ft_isspace(char c);
 
 #endif

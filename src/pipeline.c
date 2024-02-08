@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipeline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
+/*   By: larz <larz@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 16:39:13 by jde-meo           #+#    #+#             */
-/*   Updated: 2024/01/30 17:30:26 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/02/08 19:02:09 by larz             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ t_pipeline	*create_ppl(void)
 
 	out = malloc(sizeof(t_pipeline));
     ft_bzero(out, sizeof(t_pipeline));
+	out->fd_out = 1;
 	return (out);
 }
 
@@ -37,14 +38,23 @@ t_pipeline	*add_ppl(t_pipeline **ppl)
     return (p->next);
 }
 
+void	free_cmd(t_pipeline *ppl)
+{
+    free(ppl->cmd);
+    free_prms(&(ppl->prm));
+	if (ppl->fd_in != 0)
+		close(ppl->fd_in);
+	if (ppl->fd_out != 1)
+		close(ppl->fd_out);
+}
+
 void	free_ppl(t_pipeline **ppl)
 {
 	if (*ppl == NULL)
 		return ;
 	if ((*ppl)->next != NULL)
 		free_ppl(&((*ppl)->next));
-    free((*ppl)->cmd);
-    free_prms(&((*ppl)->prm));
+	free_cmd(*ppl);
 	free(*ppl);
 	*ppl = NULL;
 }

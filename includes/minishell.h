@@ -6,7 +6,7 @@
 /*   By: larz <larz@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:30:38 by larz              #+#    #+#             */
-/*   Updated: 2024/02/06 18:53:37 by larz             ###   ########.fr       */
+/*   Updated: 2024/02/08 19:04:18 by larz             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,15 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <signal.h>
+# include <errno.h>
 
-# define STATE_CMD 0
-# define STATE_PRM 1
-# define STATE_RDR 2
-# define STATE_PIP 3
-# define STATE_FIL 4
-# define RDR_IN			0
-# define RDR_OUT		1
-# define RDR_APPEND		2
-# define RDR_HERE_DOC	3
+# define MODE_NEW_CMD 1
+# define MODE_CMD_PRM 2
+
+# define RDR_OUT_APP 		1
+# define RDR_OUT_NEW 		2
+# define RDR_IN_NORMAL 		3
+# define RDR_IN_HEREDOC 	4
 
 # define DEF 			"\001\e\033[0m\002"
 # define RED 			"\001\e\033[0;31m\002"
@@ -67,7 +66,11 @@ typedef struct s_pipeline
 	struct s_pipeline	*next;
 }	t_pipeline;
 
+/*	MAIN.C		*/
+void		exit_handler(char *msg, char *details, int free_msg, int code);
+
 /*	PARSING.C	*/
+char		*get_word(char **s);
 t_pipeline	*parse(const char *str);
 
 /*	PRM.C		*/
@@ -76,16 +79,22 @@ void		free_prms(t_prm **prms);
 
 /*	PIPELINE.C	*/
 t_pipeline	*add_ppl(t_pipeline **ppl);
+void		free_cmd(t_pipeline *ppl);
 void		free_ppl(t_pipeline **ppl);
 t_pipeline	*get_last(t_pipeline *ppl);
 
 /*	EXECUTE.C	*/
-void		execute(t_pipeline **ppl, char **envp);
+void		execute(t_pipeline *ppl, char **envp);
 
 /*	RUN.C		*/
-int 		run(t_pipeline **ppl, char **envp);
+int 		run(t_pipeline *ppl, char **envp);
 
 /*	INPUT.C		*/
 char 		*build_input(char **envp);
+
+/*	REDIRECT.C	*/
+void		redirect_out_app(t_pipeline **ppl, char **s, int mode);
+void		redirect_out_normal(t_pipeline **ppl, char **s, int mode);
+void		redirect_in_normal(t_pipeline **ppl, char **s, int mode);
 
 #endif
