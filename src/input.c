@@ -3,60 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: larz <larz@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 17:21:37 by larz              #+#    #+#             */
-/*   Updated: 2024/02/08 19:07:20 by larz             ###   ########.fr       */
+/*   Updated: 2024/02/10 15:44:16 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-static char	*get_folder(char **envp)
+static char *get_folder_name(char **envp)
 {
-	t_pipeline	*ppl;
-	int			pipe_fd[2];
-	char		*line;
+    char    *home_dir;
+	char	*path;
 
-	ppl = NULL;
-	add_ppl(&ppl)->cmd = str_adds(NULL, "pwd", 7);
-	if (pipe(pipe_fd) < 0)
-		return (NULL);
-	ppl->fd_out = pipe_fd[1];
-	run(ppl, envp);
-	line = get_next_line(pipe_fd[0]);
-	free_ppl(&ppl);
-	close(pipe_fd[1]);
-	close(pipe_fd[0]);
-	return (line);
-	
+	home_dir = get_env_value("HOME", envp);
+	path = get_env_value("PWD", envp);
+	if (ft_strncmp(path, home_dir, ft_strlen(path)) == 0)
+		return ("~");
+	return (ft_strrchr(path, '/') + 1);
 }
 
 char *build_input(char **envp)
 {
-	t_pipeline	*ppl;
-	int			pipe_fd[2];
 	char		*out;
 	char		*line;
 
 	out = NULL;
-	ppl = NULL;
-	add_ppl(&ppl)->cmd = str_adds(NULL, "whoami", 7);
-	if (pipe(pipe_fd) < 0)
-		return (NULL);
-	ppl->fd_out = pipe_fd[1];
-	run(ppl, envp);
-	line = get_next_line(pipe_fd[0]);
-	out = str_adds(out, BOLD_PURPLE"@", ft_strlen(BOLD_PURPLE" | "));
-	out = str_adds(out, line, ft_strlen(line) - 1);
-	out = str_adds(out, " "BLUE, ft_strlen(" "BLUE));
-	free(line);
-	line = get_folder(envp);
-	out = str_adds(out, line, ft_strlen(line) - 1);
-	free(line);
-	free_ppl(&ppl);
-	out = str_adds(out, BOLD_GREEN" 8=> "BOLD_CYAN, ft_strlen(BOLD_GREEN" 8=> "BOLD_CYAN));
-	close(pipe_fd[1]);
-	close(pipe_fd[0]);
+	line = get_env_value("USER", envp);
+	out = str_adds(out, BOLD_PURPLE"@", ft_strlen(BOLD_PURPLE"@"));
+	out = str_adds(out, line, ft_strlen(line));
+	out = str_adds(out, " "BOLD_CYAN, ft_strlen(" "BOLD_CYAN));
+	line = get_folder_name(envp);
+	out = str_adds(out, line, ft_strlen(line));
+    if (g_exec == 0)
+	    out = str_adds(out, BOLD_GREEN" 8=> "CYAN, ft_strlen(BOLD_GREEN" 8=> "CYAN));
+    else
+	    out = str_adds(out, BOLD_RED" 8=> "CYAN, ft_strlen(BOLD_RED" 8=> "CYAN));
 	return (out);
 }

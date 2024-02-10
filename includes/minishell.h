@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:30:38 by larz              #+#    #+#             */
-/*   Updated: 2024/02/10 14:53:15 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/02/10 18:47:49 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@
 # define BOLD_CYAN 		"\001\e\033[1;36m\002"
 # define BOLD_WHITE 	"\001\e\033[1;37m\002"
 
-
+extern int   g_exec;
 
 typedef	struct s_prm
 {
@@ -65,6 +65,7 @@ typedef struct s_pipeline
 	t_prm				*prm;
 	int					fd_in;
 	int					fd_out;
+    int					error;
 	struct s_pipeline	*next;
 }	t_pipeline;
 
@@ -89,7 +90,9 @@ t_pipeline	*get_last(t_pipeline *ppl);
 void		execute(t_pipeline *ppl, char **envp);
 
 /*	RUN.C		*/
-int 		run(t_pipeline *ppl, char **envp);
+void 		run(t_pipeline *ppl, char **envp);
+void        run_pipeline(t_pipeline *ppl, int stdin_bk, char **envp);
+char		*run_cmd(char *cmd, char **envp);
 
 /*	INPUT.C		*/
 char 		*build_input(char **envp);
@@ -101,5 +104,12 @@ void		redirect_in_normal(t_pipeline **ppl, char **s, int mode);
 
 /*  HEREDOC.C   */
 void    	heredoc(t_pipeline **ppl, char **s, int mode);
+
+/*  ENV.C       */
+char        *get_env_value(char *var, char **envp);
+void		set_env_value(char *var, char *value, char **envp);
+
+/*  CD.C        */
+int			cd(t_pipeline *ppl, char **envp);
 
 #endif

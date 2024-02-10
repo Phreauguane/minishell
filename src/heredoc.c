@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:06:36 by jde-meo           #+#    #+#             */
-/*   Updated: 2024/02/10 14:49:55 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/02/10 16:02:27 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,10 @@ void	heredoc(t_pipeline **ppl, char **s, int mode)
 
 	(*s) += 2;
 	if (mode != MODE_CMD_PRM)
-		exit_handler("Parse error, no command found", NULL, 0, 1);
+		return exit_handler("Parse error, no command found", NULL, 0, 1);
 	lmt = get_word(s);
-	if (!lmt)
-		exit_handler("Parse error, no limiter found", NULL, 0, 1);
+	if (!lmt || *lmt == '\0')
+		return exit_handler("Parse error, no limiter found", NULL, 0, 1);
 	limiter = str_addc(ft_strdup(lmt), '\n');
 	pipe(pipe_fd);
 	get_last(*ppl)->fd_in = pipe_fd[0];

@@ -6,14 +6,14 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:29:08 by larz              #+#    #+#             */
-/*   Updated: 2024/02/10 14:53:01 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/02/10 16:31:21 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-static int	g_sig;
-static int  g_exec;
+int g_sig;
+int g_exec;
 
 void	handler(int sig)
 {
@@ -56,14 +56,13 @@ int	check_input(char *line)
 
 void	exit_handler(char *msg, char *details, int free_msg, int code)
 {
-	ft_printf(strerror(errno));
 	if (msg && details)
-		ft_printf("\nminishell: %s: %s\n", msg, details);
+		ft_printf("minishell: %s: %s\n", msg, details);
 	else if (msg)
-		ft_printf("\nminishell: %s\n", msg);
+		ft_printf("minishell: %s\n", msg);
 	if (free_msg && msg)
 		free(msg);
-	exit(code);
+	g_exec = code;
 }
 
 int	main(int ac, char **av, char **envp)
@@ -71,7 +70,6 @@ int	main(int ac, char **av, char **envp)
 	int			stdin_bk;
 	char		*line;
 	t_pipeline	*ppl;
-	t_pipeline	*p;
 
 	g_sig = -1;
 	stdin_bk = dup(STDIN_FILENO);
@@ -83,14 +81,8 @@ int	main(int ac, char **av, char **envp)
 		if (!check_input(line))
 			continue ;
 		ppl = parse(line);
-		ft_printf(BOLD_PURPLE);
+		ft_printf(PURPLE);
 		free(line);
-		p = ppl;
-		while (p)
-		{
-			dup2(stdin_bk, STDIN_FILENO);
-			run(p, envp);
-			p = p->next;
-		}
+        run_pipeline(ppl, stdin_bk, envp);
 	}
 }

@@ -14,7 +14,9 @@ FILES		=	main.c		\
 				run.c		\
 				input.c		\
 				redirect.c	\
-				heredoc.c
+				heredoc.c	\
+				env.c		\
+				cd.c
 
 SRC			=	$(addprefix $(SRC_DIR),$(FILES))
 
@@ -52,5 +54,11 @@ fclean	:	clean
 	@echo "\033[1;32mDone"
 
 re		:	fclean all
+
+git		:	fclean
+	git status
+	git add *
+	git commit -m "Auto commit from makefile"
+	git push
 
 .PHONY: all clean fclean re
