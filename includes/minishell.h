@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:30:38 by larz              #+#    #+#             */
-/*   Updated: 2024/02/10 18:47:49 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/02/10 21:52:12 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@
 # define BOLD_PURPLE 	"\001\e\033[1;35m\002"
 # define BOLD_CYAN 		"\001\e\033[1;36m\002"
 # define BOLD_WHITE 	"\001\e\033[1;37m\002"
+# define COLOR			"\001\e\033[38;2;255;153;153m\002"
 
 extern int   g_exec;
 
@@ -111,5 +112,8 @@ void		set_env_value(char *var, char *value, char **envp);
 
 /*  CD.C        */
 int			cd(t_pipeline *ppl, char **envp);
+
+/*	HISTORY.C	*/
+int 		history(char *input);
 
 #endif

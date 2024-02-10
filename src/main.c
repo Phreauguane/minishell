@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:29:08 by larz              #+#    #+#             */
-/*   Updated: 2024/02/10 16:31:21 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/02/10 21:52:38 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,12 +77,15 @@ int	main(int ac, char **av, char **envp)
 	while ((ac && av) || 1)
 	{
 		line = readline(build_input(envp));
+		if (line)
+			history(line);
 		dup2(stdin_bk, STDIN_FILENO);
 		if (!check_input(line))
 			continue ;
 		ppl = parse(line);
-		ft_printf(PURPLE);
+		ft_printf(COLOR);
 		free(line);
         run_pipeline(ppl, stdin_bk, envp);
 	}
+	clear_history();
 }

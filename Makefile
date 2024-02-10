@@ -16,7 +16,8 @@ FILES		=	main.c		\
 				redirect.c	\
 				heredoc.c	\
 				env.c		\
-				cd.c
+				cd.c		\
+				history.c
 
 SRC			=	$(addprefix $(SRC_DIR),$(FILES))
 
