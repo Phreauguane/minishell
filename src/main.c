@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: larz <larz@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:29:08 by larz              #+#    #+#             */
-/*   Updated: 2024/02/08 19:59:30 by larz             ###   ########.fr       */
+/*   Updated: 2024/02/10 14:53:01 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
 static int	g_sig;
+static int  g_exec;
 
 void	handler(int sig)
 {

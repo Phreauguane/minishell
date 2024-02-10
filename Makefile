@@ -13,7 +13,8 @@ FILES		=	main.c		\
 				execute.c	\
 				run.c		\
 				input.c		\
-				redirect.c
+				redirect.c	\
+				heredoc.c
 
 SRC			=	$(addprefix $(SRC_DIR),$(FILES))
 

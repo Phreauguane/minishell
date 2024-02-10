@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: larz <larz@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:30:38 by larz              #+#    #+#             */
-/*   Updated: 2024/02/08 19:04:18 by larz             ###   ########.fr       */
+/*   Updated: 2024/02/10 14:53:15 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@
 # define BOLD_PURPLE 	"\001\e\033[1;35m\002"
 # define BOLD_CYAN 		"\001\e\033[1;36m\002"
 # define BOLD_WHITE 	"\001\e\033[1;37m\002"
+
+
 
 typedef	struct s_prm
 {
@@ -96,5 +98,8 @@ char 		*build_input(char **envp);
 void		redirect_out_app(t_pipeline **ppl, char **s, int mode);
 void		redirect_out_normal(t_pipeline **ppl, char **s, int mode);
 void		redirect_in_normal(t_pipeline **ppl, char **s, int mode);
+
+/*  HEREDOC.C   */
+void    	heredoc(t_pipeline **ppl, char **s, int mode);
 
 #endif
