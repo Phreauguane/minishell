@@ -8,6 +8,7 @@ SRC_DIR		=	src/
 
 FILES		=	main.c		\
 				parsing.c	\
+				parsing2.c	\
 				prm.c		\
 				pipeline.c	\
 				execute.c	\

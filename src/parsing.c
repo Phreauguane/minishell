@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 16:10:01 by larz              #+#    #+#             */
-/*   Updated: 2024/02/10 14:33:54 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/02/11 00:05:34 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char	*get_word(char **s)
 	return (word);
 }
 
-void	read_data(t_pipeline **ppl, char **s, int *mode)
+void	read_data(t_pipeline **ppl, char **s, int *mode, char **envp)
 {
 	if (*mode == MODE_NEW_CMD)
 	{
@@ -65,10 +65,10 @@ void	read_data(t_pipeline **ppl, char **s, int *mode)
 		*mode = MODE_CMD_PRM;
 	}
 	if (*mode == MODE_CMD_PRM)
-		add_prm(&(get_last(*ppl)->prm), get_word(s));
+		add_prm(&(get_last(*ppl)->prm), get_word_env(s, envp));
 }
 
-int	handle_parsing(t_pipeline **ppl, char **s, int *mode)
+int	handle_parsing(t_pipeline **ppl, char **s, int *mode, char **envp)
 {
 	int	pipe_fd[2];
 	
@@ -93,11 +93,11 @@ int	handle_parsing(t_pipeline **ppl, char **s, int *mode)
 		heredoc(ppl, s, *mode);
 	else if (**s == '<')
 		redirect_in_normal(ppl, s, *mode);
-	read_data(ppl, s, mode);
+	read_data(ppl, s, mode, envp);
 	return (0);
 }
 
-t_pipeline	*parse(const char *str)
+t_pipeline	*parse(const char *str, char **envp)
 {
 	char		*s;
 	t_pipeline	*ppl;
@@ -108,6 +108,6 @@ t_pipeline	*parse(const char *str)
 	mode = MODE_NEW_CMD;
 	add_ppl(&ppl);
 	while (*s)
-		handle_parsing(&ppl, &s, &mode);
+		handle_parsing(&ppl, &s, &mode, envp);
 	return (ppl);
 }

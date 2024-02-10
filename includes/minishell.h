@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:30:38 by larz              #+#    #+#             */
-/*   Updated: 2024/02/10 21:52:12 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/02/10 23:54:13 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,13 @@ typedef struct s_pipeline
 void		exit_handler(char *msg, char *details, int free_msg, int code);
 
 /*	PARSING.C	*/
+char		*get_word_env(char **s, char **envp);
 char		*get_word(char **s);
-t_pipeline	*parse(const char *str);
+int			get_str(char limiter, char **str, char **start);
+t_pipeline	*parse(const char *str, char **envp);
+
+/*	PARSING2.C	*/
+void		check_env(char **s, char **word, char **envp);
 
 /*	PRM.C		*/
 void		add_prm(t_prm **prms, char *prm);
