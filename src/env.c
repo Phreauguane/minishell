@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 15:30:32 by jde-meo           #+#    #+#             */
-/*   Updated: 2024/02/10 18:15:02 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/02/11 13:10:42 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,27 @@ void	set_env_value(char *var, char *value, char **envp)
 	while (envp[++i])
 		if (strncmp(var, envp[i], ft_strlen(var)) == 0)
 			envp[i] = new_val;
+}
+
+void	update_shlvl(char **envp)
+{
+	char	*value;
+	char	*new;
+	
+	value = get_env_value("SHLVL", envp);
+	new = ft_itoa(ft_atoi(value) + 1);
+	set_env_value("SHLVL", new, envp);
+	free(new);
+}
+
+int	env(char **envp)
+{
+	int	i;
+
+	i = 0;
+	if (!envp)
+		return (-1);
+	while (envp[i])
+		ft_printf("%s\n", envp[i++]);
+	return(0);
 }

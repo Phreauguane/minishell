@@ -63,4 +63,8 @@ git		:	fclean
 	git commit -m "Auto commit from makefile"
 	git push
 
+run		:	all
+	@clear
+	@./$(NAME)
+
 .PHONY: all clean fclean re

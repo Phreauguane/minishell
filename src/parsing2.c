@@ -6,27 +6,11 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 23:32:06 by jde-meo           #+#    #+#             */
-/*   Updated: 2024/02/11 00:17:45 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/02/11 12:54:10 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-
-int	get_str_env(char limiter, char **str, char **start, char **envp)
-{
-	(*start)++;
-	if (**start != limiter && **start)
-	{
-		check_env(start, str, envp);
-		return (get_str_env(limiter, str, start, envp));
-	}
-	if (**start == limiter)
-	{
-		(*start)++;
-		return (1);
-	}
-	return (0);
-}
 
 char	*get_word_env(char **s, char **envp)
 {
@@ -35,56 +19,63 @@ char	*get_word_env(char **s, char **envp)
 	word = NULL;
 	while (ft_isspace(**s))
 		(*s)++;
-	while (**s)
-	{
-		if (**s == '\"')
-		{
-			get_str_env('\"', &word, s, envp);
-			ft_printf("word : [%s]", word);
-		}
-		else if (**s == '\'')
-			get_str('\'', &word, s);
-		else if (**s == ' ')
-		{
-			(*s)++;
-			return (word);
-		}
-		else if (**s == '\0' || **s == '>' || **s == '<' || **s == '|')
-			return (word);
-		else
-		{
-			check_env(s, &word, envp);
-			(*s)++;
-		}
-	}
+	while (!ft_isspace(**s) && **s)
+		check_env(s, &word, envp);
 	return (word);
+}
+
+void	add_exec_status(char **s, char **word)
+{
+	char	*val;
+
+	(*s) += 2;
+	val = ft_itoa(g_exec);
+	*word = str_adds(*word, val, ft_strlen(val));
+	free(val);
+}
+
+void	add_env_var(char **s, char **word, char **envp)
+{
+	char	*var;
+	char	*val;
+
+	var = NULL;
+	(*s)++;
+	while (!ft_isspace(**s) && **s && **s != '\"' && **s != '\''
+		&& **s != '/')
+	{
+		var = str_addc(var, **s);
+		(*s)++;
+	}
+	val = get_env_value(var, envp);
+	*word = str_adds(*word, val, ft_strlen(val));
+	free(var);
+}
+
+void	add_str(char **s, char **word, char **envp, char lim)
+{
+	(*s)++;
+	while (**s && **s != lim)
+	{
+		if (**s == '$' && *(*s + 1) == '?' && lim =='\"')
+			add_exec_status(s, word);
+		else if (**s == '$' && lim =='\"')
+			add_env_var(s, word, envp);
+		else if (**s != lim)
+			*word = str_addc(*word, *((*s)++));
+	}
+	if (**s == lim)
+		(*s)++;
 }
 
 void	check_env(char **s, char **word, char **envp)
 {
-	char	*val;
-	char	*var;
-
-	var = NULL;
-	if (**s != '$')
-	{
-		*word = str_addc(*word, **s);
-		return ;
-	}
-	else if (*((*s) + 1) == '?')
-		val = ft_itoa(g_exec);
+	if (**s == '$' && *(*s + 1) == '?')
+		add_exec_status(s, word);
+	else if (**s == '$')
+		add_env_var(s, word, envp);
+	else if (**s == '\'' || **s == '\"')
+		add_str(s, word, envp, **s);
 	else
-	{
-		while (!ft_isspace(**s) && **s && **s != '\"' && **s != '\'')
-		{
-			(*s)++;
-			var = str_addc(var, **s);
-		}
-		val = get_env_value(var, envp);
-		free(var);
-	}
-	if (val)
-		*word = str_adds(*word, val, ft_strlen(val));
-	if (var == NULL)
-		free(val);
+		*word = str_addc(*word, *((*s)++));
 }

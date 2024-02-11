@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:29:08 by larz              #+#    #+#             */
-/*   Updated: 2024/02/10 23:52:59 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/02/11 13:46:39 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ int	main(int ac, char **av, char **envp)
 	g_sig = -1;
 	stdin_bk = dup(STDIN_FILENO);
 	config_signals();
+	update_shlvl(envp);
+	open_history();
 	while ((ac && av) || 1)
 	{
 		line = readline(build_input(envp));

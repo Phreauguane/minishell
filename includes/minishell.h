@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:30:38 by larz              #+#    #+#             */
-/*   Updated: 2024/02/10 23:54:13 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/02/11 13:53:31 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@
 # define BOLD_CYAN 		"\001\e\033[1;36m\002"
 # define BOLD_WHITE 	"\001\e\033[1;37m\002"
 # define COLOR			"\001\e\033[38;2;255;153;153m\002"
+
+# define HISTORY_FILE	".history"
 
 extern int   g_exec;
 
@@ -114,11 +116,14 @@ void    	heredoc(t_pipeline **ppl, char **s, int mode);
 /*  ENV.C       */
 char        *get_env_value(char *var, char **envp);
 void		set_env_value(char *var, char *value, char **envp);
+int			env(char **envp);
+void		update_shlvl(char **envp);
 
 /*  CD.C        */
 int			cd(t_pipeline *ppl, char **envp);
 
 /*	HISTORY.C	*/
-int 		history(char *input);
+void		history(char *input);
+void		open_history();
 
 #endif

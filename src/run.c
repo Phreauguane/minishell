@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 17:02:19 by jde-meo           #+#    #+#             */
-/*   Updated: 2024/02/10 18:50:21 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/02/11 13:07:05 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ int	run_builtin(t_pipeline *ppl, char **envp)
     }
 	else if (comp_cmd(ppl->cmd, "cd"))
 		g_exec = cd(ppl, envp);
+	else if (comp_cmd(ppl->cmd, "env"))
+		g_exec = env(envp);
 	else
 		return (0);
 	return (1);

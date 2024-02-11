@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: larz <larz@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 16:36:08 by jde-meo           #+#    #+#             */
-/*   Updated: 2024/02/08 20:14:27 by larz             ###   ########.fr       */
+/*   Updated: 2024/02/11 12:50:54 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ void	execute(t_pipeline *ppl, char **envp)
 {
 	char	**cmd_args;
 	char	*exec;
+	int		ex;
 
 	dup2(ppl->fd_in, STDIN_FILENO);
 	dup2(ppl->fd_out, STDOUT_FILENO);
@@ -102,8 +103,8 @@ void	execute(t_pipeline *ppl, char **envp)
 		exit(0);
 	cmd_args = build_prms(ppl);
 	exec = get_exec(ppl->cmd, envp);
-	//write(2, "Executing command\n", 19);
-	execve(exec, cmd_args, envp);
-	//write(2, "Done 2!\n", 8);
-	exit_handler("command not found", exec, 0, -1);
+	ex = execve(exec, cmd_args, envp);
+	ft_printf("minishell: %s: %s\n", exec, strerror(errno));
+	//exit_handler("command not found", exec, 0, -1);
+	exit(ex);
 }
