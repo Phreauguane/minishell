@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 15:47:24 by jde-meo           #+#    #+#             */
-/*   Updated: 2024/02/10 18:49:26 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/02/11 22:50:45 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	cd(t_pipeline *ppl, char **envp)
 	char	*pwd;
     int		exec;
 
-	if (!(ppl->prm))
+	if (!(ppl->prm) || !(ppl->prm->str))
 		path = get_env_value("HOME", envp);
 	else if (ppl->prm->next != NULL)
 	{
