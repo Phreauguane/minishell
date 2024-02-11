@@ -6,19 +6,24 @@ INCLUDE		=	-I includes
 
 SRC_DIR		=	src/
 
-FILES		=	main.c		\
-				parsing.c	\
-				parsing2.c	\
-				prm.c		\
-				pipeline.c	\
-				execute.c	\
-				run.c		\
-				input.c		\
-				redirect.c	\
-				heredoc.c	\
-				env.c		\
-				cd.c		\
-				history.c
+FILES		=	main.c				\
+				parsing.c			\
+				parsing2.c			\
+				prm.c				\
+				pipeline.c			\
+				execute.c			\
+				run.c				\
+				run_builtin.c		\
+				input.c				\
+				redirect.c			\
+				heredoc.c			\
+				env.c				\
+				cd.c				\
+				history.c			\
+				echo.c				\
+				pwd.c				\
+				export.c			\
+				git.c
 
 SRC			=	$(addprefix $(SRC_DIR),$(FILES))
 

@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:29:08 by larz              #+#    #+#             */
-/*   Updated: 2024/02/11 18:27:42 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/02/11 20:59:33 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,29 +65,49 @@ void	exit_handler(char *msg, char *details, int free_msg, int code)
 	g_exec = code;
 }
 
+void	print_pipeline(t_pipeline *ppl)
+{
+	t_prm	*p;
+
+	while (ppl)
+	{
+		ft_printf("PIPELINE : %p\nCOMMAND : %s\n", ppl, ppl->cmd);
+		ft_printf("PARAMS :\n");
+		p = ppl->prm;
+		while (p)
+		{
+			ft_printf("\t[%s]\n", p->str);
+			p = p->next;
+		}
+		ppl = ppl->next;
+	}
+	ft_printf("PIPELINE : %p\n", ppl);
+}
+
 int	main(int ac, char **av, char **envp)
 {
 	int			stdin_bk;
 	char		*line;
+	char		**env;
 	t_pipeline	*ppl;
 
 	g_sig = -1;
 	stdin_bk = dup(STDIN_FILENO);
 	config_signals();
-	update_shlvl(envp);
 	open_history();
+	env = dup_envp(envp);
+	update_shlvl(env);
 	while ((ac && av) || 1)
 	{
-		line = readline(build_input(envp));
-		if (line)
-			history(line);
-		dup2(stdin_bk, STDIN_FILENO);
+		line = readline(build_input(env));
+		history(line);
+		ft_printf(COLOR, dup2(stdin_bk, STDIN_FILENO));
 		if (!check_input(line))
 			continue ;
-		ppl = parse(line, envp);
-		ft_printf(COLOR);
+		ppl = parse(line, env);
 		free(line);
-        run_pipeline(ppl, stdin_bk, envp);
+        run_pipeline(ppl, stdin_bk, &env);
 	}
+	ft_free_split(env);
 	clear_history();
 }

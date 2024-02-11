@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 16:36:08 by jde-meo           #+#    #+#             */
-/*   Updated: 2024/02/11 12:50:54 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/02/11 20:03:31 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,5 @@ void	execute(t_pipeline *ppl, char **envp)
 	exec = get_exec(ppl->cmd, envp);
 	ex = execve(exec, cmd_args, envp);
 	ft_printf("minishell: %s: %s\n", exec, strerror(errno));
-	//exit_handler("command not found", exec, 0, -1);
 	exit(ex);
 }

@@ -1,42 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   run.c                                              :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/01 17:02:19 by jde-meo           #+#    #+#             */
-/*   Updated: 2024/02/11 21:33:56 by jde-meo          ###   ########.fr       */
+/*   Created: 2024/02/11 19:12:15 by jde-meo           #+#    #+#             */
+/*   Updated: 2024/02/11 21:33:25 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-char	*run_cmd(char *cmd, char **envp)
-{
-	t_pipeline	*ppl;
-	int			pipe_fd[2];
-
-	ppl = NULL;
-	pipe(pipe_fd);
-	add_ppl(&ppl)->cmd = cmd;
-	ppl->fd_out = pipe_fd[1];
-	run_raw(ppl, envp);
-	return (get_next_line(pipe_fd[0]));
-}
-
-void    run(t_pipeline *ppl, char ***envp)
+void	run_raw(t_pipeline *ppl, char **envp)
 {
 	int		stat1;
 	pid_t	child1;
 
-	if (run_builtin(ppl, envp))
-		return ;
 	child1 = fork();
 	if (child1 < 0)
 		return ;
 	if (child1 == 0)
-		execute(ppl, *envp);
+		execute(ppl, envp);
 	if (ppl->fd_in != 0)
 		close(ppl->fd_in);
 	if (ppl->fd_out != 1)
@@ -45,16 +30,14 @@ void    run(t_pipeline *ppl, char ***envp)
     g_exec = stat1;
 }
 
-void    run_pipeline(t_pipeline *ppl, int stdin_bk, char ***envp)
+int	pwd(char **envp)
 {
-    t_pipeline  *p;
-    
-	p = ppl;
-	while (p)
-	{
-		dup2(stdin_bk, STDIN_FILENO);
-		if (p->error == 0)
-			run(p, envp);
-		p = p->next;
-	}
+	char	*wd;
+	
+	wd = get_env_value("PWD", envp);
+	if (wd)
+		ft_printf("%s\n", wd);
+	else
+		return (-1);
+	return (0);
 }

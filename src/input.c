@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 17:21:37 by larz              #+#    #+#             */
-/*   Updated: 2024/02/10 15:44:16 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/02/11 21:27:51 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,9 @@ char *build_input(char **envp)
 	out = str_adds(out, " "BOLD_CYAN, ft_strlen(" "BOLD_CYAN));
 	line = get_folder_name(envp);
 	out = str_adds(out, line, ft_strlen(line));
+	line = run_git(envp);
+	out = str_adds(out, line, ft_strlen(line));
+	free(line);
     if (g_exec == 0)
 	    out = str_adds(out, BOLD_GREEN" 8=> "CYAN, ft_strlen(BOLD_GREEN" 8=> "CYAN));
     else

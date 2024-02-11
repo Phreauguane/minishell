@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 21:48:24 by jde-meo           #+#    #+#             */
-/*   Updated: 2024/02/11 13:53:52 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/02/11 19:36:10 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	history(char *input)
     int            fd;
 
     i = 0;
+	if (!input)
+		return ;
     fd = open(HISTORY_FILE, O_CREAT | O_APPEND | O_RDWR, S_IRWXU | S_IRWXG | S_IRWXO);
     if (fd < 0)
     {

@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:30:38 by larz              #+#    #+#             */
-/*   Updated: 2024/02/11 13:53:31 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/02/11 21:37:08 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,10 @@
 # define BOLD_PURPLE 	"\001\e\033[1;35m\002"
 # define BOLD_CYAN 		"\001\e\033[1;36m\002"
 # define BOLD_WHITE 	"\001\e\033[1;37m\002"
+# define BOLD_BLACK 	"\001\e\033[1;30m\002"
 # define COLOR			"\001\e\033[38;2;255;153;153m\002"
+# define BG_GREEN		"\001\e\033[48;2;0;200;0m\002"
+# define BG_RED			"\001\e\033[48;2;200;70;0m\002"
 
 # define HISTORY_FILE	".history"
 
@@ -72,58 +75,78 @@ typedef struct s_pipeline
 	struct s_pipeline	*next;
 }	t_pipeline;
 
-/*	MAIN.C		*/
+/*	MAIN.C			*/
 void		exit_handler(char *msg, char *details, int free_msg, int code);
 
-/*	PARSING.C	*/
+/*	PARSING.C		*/
 char		*get_word_env(char **s, char **envp);
 char		*get_word(char **s);
 int			get_str(char limiter, char **str, char **start);
 t_pipeline	*parse(const char *str, char **envp);
 
-/*	PARSING2.C	*/
+/*	PARSING2.C		*/
 void		check_env(char **s, char **word, char **envp);
 
-/*	PRM.C		*/
+/*	PRM.C			*/
 void		add_prm(t_prm **prms, char *prm);
 void		free_prms(t_prm **prms);
 
-/*	PIPELINE.C	*/
+/*	PIPELINE.C		*/
 t_pipeline	*add_ppl(t_pipeline **ppl);
 void		free_cmd(t_pipeline *ppl);
 void		free_ppl(t_pipeline **ppl);
 t_pipeline	*get_last(t_pipeline *ppl);
 
-/*	EXECUTE.C	*/
+/*	EXECUTE.C		*/
 void		execute(t_pipeline *ppl, char **envp);
+char    	**build_prms(t_pipeline *ppl);
+char		*get_exec(char *cmd, char **envp);
 
-/*	RUN.C		*/
-void 		run(t_pipeline *ppl, char **envp);
-void        run_pipeline(t_pipeline *ppl, int stdin_bk, char **envp);
+/*	RUN.C			*/
+void 		run(t_pipeline *ppl, char ***envp);
+void        run_pipeline(t_pipeline *ppl, int stdin_bk, char ***envp);
 char		*run_cmd(char *cmd, char **envp);
 
-/*	INPUT.C		*/
+/*	RUN_BUILTIN.C	*/
+int			run_builtin(t_pipeline *ppl, char ***envp);
+
+/*	INPUT.C			*/
 char 		*build_input(char **envp);
 
-/*	REDIRECT.C	*/
+/*	REDIRECT.C		*/
 void		redirect_out_app(t_pipeline **ppl, char **s, int mode);
 void		redirect_out_normal(t_pipeline **ppl, char **s, int mode);
 void		redirect_in_normal(t_pipeline **ppl, char **s, int mode);
 
-/*  HEREDOC.C   */
+/*  HEREDOC.C   	*/
 void    	heredoc(t_pipeline **ppl, char **s, int mode);
 
-/*  ENV.C       */
+/*  ENV.C       	*/
 char        *get_env_value(char *var, char **envp);
 void		set_env_value(char *var, char *value, char **envp);
 int			env(char **envp);
 void		update_shlvl(char **envp);
+int			find_var(char *var, char **envp);
 
-/*  CD.C        */
+/*  CD.C        	*/
 int			cd(t_pipeline *ppl, char **envp);
 
-/*	HISTORY.C	*/
+/*	HISTORY.C		*/
 void		history(char *input);
 void		open_history();
+
+/*	ECHO.C			*/
+int			echo(t_pipeline *ppl);
+
+/*	PWD.C			*/
+void		run_raw(t_pipeline *ppl, char **envp);
+int			pwd(char **envp);
+
+/*	EXPORT.C		*/
+int			export(t_pipeline *ppl, char ***envp);
+char		**dup_envp(char **envp);
+
+/*	GIT.C			*/
+char    	*run_git(char **envp);
 
 #endif
