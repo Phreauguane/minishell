@@ -6,11 +6,13 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 21:48:24 by jde-meo           #+#    #+#             */
-/*   Updated: 2024/02/11 19:36:10 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/02/11 22:00:45 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
+
+static char	*g_dir;
 
 void	history(char *input)
 {
@@ -20,7 +22,7 @@ void	history(char *input)
     i = 0;
 	if (!input)
 		return ;
-    fd = open(HISTORY_FILE, O_CREAT | O_APPEND | O_RDWR, S_IRWXU | S_IRWXG | S_IRWXO);
+    fd = open(g_dir, O_CREAT | O_APPEND | O_RDWR, S_IRWXU | S_IRWXG | S_IRWXO);
     if (fd < 0)
     {
         ft_printf("Error opening file.\n");
@@ -40,14 +42,25 @@ void	history(char *input)
     close(fd);
 }
 
-void	open_history()
+void	save_dir(char **envp)
+{
+	char	*wd;
+
+	wd = run_cmd("pwd", envp);
+	g_dir = str_adds(NULL, wd, ft_strlen(wd) - 1);
+	g_dir = str_addc(g_dir, '/');
+	g_dir = str_adds(g_dir, HISTORY_FILE, ft_strlen(HISTORY_FILE));
+}
+
+void	open_history(char **envp)
 {
     int        fd;
     char    *line;
 	char	*l;
 
     using_history();
-    fd = open(HISTORY_FILE, O_CREAT | O_APPEND | O_RDWR, S_IRWXU | S_IRWXG | S_IRWXO);
+	save_dir(envp);
+    fd = open(g_dir, O_CREAT | O_APPEND | O_RDWR, S_IRWXU | S_IRWXG | S_IRWXO);
     if (fd < 0)
 		ft_printf("Error opening file.\n");
 	line = (char *)1;
@@ -64,4 +77,10 @@ void	open_history()
     }
 	if (fd >= 0)
 	    close(fd);
+}
+
+void	cleanup_history()
+{
+	clear_history();
+	free(g_dir);
 }

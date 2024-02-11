@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:30:38 by larz              #+#    #+#             */
-/*   Updated: 2024/02/11 21:37:08 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/02/11 21:59:19 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,8 @@ int			cd(t_pipeline *ppl, char **envp);
 
 /*	HISTORY.C		*/
 void		history(char *input);
-void		open_history();
+void		open_history(char **envp);
+void		cleanup_history();
 
 /*	ECHO.C			*/
 int			echo(t_pipeline *ppl);
