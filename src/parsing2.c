@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 23:32:06 by jde-meo           #+#    #+#             */
-/*   Updated: 2024/02/11 20:24:00 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/02/11 22:10:23 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*get_word_env(char **s, char **envp)
 	word = NULL;
 	while (ft_isspace(**s))
 		(*s)++;
-	while (!ft_isspace(**s) && **s)
+	while (!ft_isspace(**s) && **s && **s != '>' && **s != '<' && **s != '|')
 		check_env(s, &word, envp);
 	return (word);
 }

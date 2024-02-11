@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:29:08 by larz              #+#    #+#             */
-/*   Updated: 2024/02/11 21:59:36 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/02/11 22:36:44 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int g_sig;
 int g_exec;
+int	g_stdin;
 
 void	handler(int sig)
 {
@@ -27,9 +28,12 @@ void	handler(int sig)
 	}
 }
 
-void	config_signals(void)
+void	config(char **envp)
 {
 	struct sigaction	s;
+
+	open_history(envp);
+	update_shlvl(envp);
 	ft_bzero(&s, sizeof(s));
 	s.sa_handler = SIG_IGN;
 	sigaction(SIGQUIT, &s, NULL);
@@ -86,27 +90,25 @@ void	print_pipeline(t_pipeline *ppl)
 
 int	main(int ac, char **av, char **envp)
 {
-	int			stdin_bk;
 	char		*line;
 	char		**env;
 	t_pipeline	*ppl;
 
 	g_sig = -1;
-	stdin_bk = dup(STDIN_FILENO);
+	g_stdin = dup(STDIN_FILENO);
 	env = dup_envp(envp);
-	config_signals();
-	open_history(env);
-	update_shlvl(env);
+	config(env);
 	while ((ac && av) || 1)
 	{
 		line = readline(build_input(env));
 		history(line);
-		ft_printf(COLOR, dup2(stdin_bk, STDIN_FILENO));
+		dup2(g_stdin, STDIN_FILENO);
 		if (!check_input(line))
 			continue ;
 		ppl = parse(line, env);
 		free(line);
-        run_pipeline(ppl, stdin_bk, &env);
+		ft_printf(COLOR);
+        run_pipeline(ppl, &env);
 	}
 	ft_free_split(env);
 	cleanup_history();

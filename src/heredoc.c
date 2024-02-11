@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:06:36 by jde-meo           #+#    #+#             */
-/*   Updated: 2024/02/11 00:04:24 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/02/11 22:42:00 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,12 @@ void	fill_loop(int in, int out, char *limiter, char *lmt)
 		ft_printf(RED"heredoc ["BOLD_WHITE"%s"RED"] "
 		GREEN"> "YELLOW, lmt);
 		line = get_next_line(in);
+		dup2(g_stdin, STDIN_FILENO);
+		if (line == NULL)
+			ft_printf("\nminishell: warning: heredoc \
+delimited by end-of-file (wanted \'%s\')\n", lmt);
+		if (line == NULL)
+			return ;
 		if (ft_strncmp(line, limiter, ft_strlen(limiter) + 1) == 0)
 		{
 			free(line);

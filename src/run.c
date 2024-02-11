@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 17:02:19 by jde-meo           #+#    #+#             */
-/*   Updated: 2024/02/11 21:33:56 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/02/11 22:37:02 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,14 @@ void    run(t_pipeline *ppl, char ***envp)
     g_exec = stat1;
 }
 
-void    run_pipeline(t_pipeline *ppl, int stdin_bk, char ***envp)
+void    run_pipeline(t_pipeline *ppl, char ***envp)
 {
     t_pipeline  *p;
     
 	p = ppl;
 	while (p)
 	{
-		dup2(stdin_bk, STDIN_FILENO);
+		dup2(g_stdin, STDIN_FILENO);
 		if (p->error == 0)
 			run(p, envp);
 		p = p->next;

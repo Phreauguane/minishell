@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:30:38 by larz              #+#    #+#             */
-/*   Updated: 2024/02/11 22:05:35 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/02/11 22:36:51 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@
 
 # define HISTORY_FILE	".history"
 
-extern int   g_exec;
+extern int	g_exec;
+extern int	g_stdin;
 
 typedef	struct s_prm
 {
@@ -106,7 +107,7 @@ char		*get_exec(char *cmd, char **envp);
 
 /*	RUN.C			*/
 void 		run(t_pipeline *ppl, char ***envp);
-void        run_pipeline(t_pipeline *ppl, int stdin_bk, char ***envp);
+void        run_pipeline(t_pipeline *ppl, char ***envp);
 char		*run_cmd(char *cmd, char **envp);
 
 /*	RUN_BUILTIN.C	*/
