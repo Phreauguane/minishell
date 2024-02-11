@@ -52,6 +52,7 @@ clean	:
 fclean	:	clean
 	@echo "\033[0;31mDeleting executables..."
 	@rm -f $(NAME)
+	@rm	-f .history
 	@make fclean -sC $(LIBFT_PATH)
 	@echo "\033[1;32mDone\033[0m"
 
