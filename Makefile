@@ -36,42 +36,45 @@ LIBFT_LIB	=	$(addprefix $(LIBFT_PATH), $(LIBFT_FILE))
 
 LIB			=	-lreadline
 
-all		:	lib
+all			:	lib
 	@echo "\033[0;33m\nCOMPILING $(NAME)"
 	$(CC) -o $(NAME) $(SRC) $(LIBFT_LIB) $(INCLUDE) $(LIB)
 	@echo "\033[1;32m$(NAME) created\033[0m"
 
-valgrind:	lib
+valgrind_c	:	lib
 	@echo "\033[0;33m\nCOMPILING $(NAME)"
 	$(CC) -g3 -o $(NAME) $(SRC) $(LIBFT_LIB) $(INCLUDE) $(LIB)
 	@echo "\033[1;32m$(NAME) created\033[0m"
 
-lib		:
+lib			:
 	@echo "\033[0;33m\nCOMPILING $(LIBFT_PATH)"
 	@make -C $(LIBFT_PATH)
 	@echo "\033[1;32m$(LIBFT_FILE) created\033[0m"
 
-clean	:
+clean		:
 	@echo "\033[0;31mDeleting objects in $(LIBFT_PATH)..."
 	@make clean -sC $(LIBFT_PATH)
 
-fclean	:	clean
+fclean		:	clean
 	@echo "\033[0;31mDeleting executables..."
 	@rm -f $(NAME)
 	@rm	-f .history
 	@make fclean -sC $(LIBFT_PATH)
 	@echo "\033[1;32mDone\033[0m"
 
-re		:	fclean all
+re			:	fclean all
 
-git		:	fclean
+git			:	fclean
 	git status
 	git add *
 	git commit -m "Auto commit from makefile"
 	git push
 
-run		:	all
+run			:	all
 	@clear
 	@./$(NAME)
+
+valgrind	:	valgrind_c
+	@valgrind --suppressions=./valgrind.supp ./$(NAME)
 
 .PHONY: all clean fclean re
