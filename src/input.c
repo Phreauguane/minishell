@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 17:21:37 by larz              #+#    #+#             */
-/*   Updated: 2024/02/11 21:27:51 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/02/12 18:03:08 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,16 @@ static char *get_folder_name(char **envp)
 	return (ft_strrchr(path, '/') + 1);
 }
 
-char *build_input(char **envp)
+char	*get_input(char *input)
+{
+	char	*line;
+
+	line = readline(input);
+	free(input);
+	return (line);
+}
+
+char	*build_input(char **envp)
 {
 	char		*out;
 	char		*line;

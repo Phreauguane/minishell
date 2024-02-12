@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:29:08 by larz              #+#    #+#             */
-/*   Updated: 2024/02/11 22:36:44 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/02/12 18:03:34 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,17 @@ int	check_input(char *line)
 	if (g_sig == SIGINT)
 	{
 		g_sig = -1;
+		free(line);
 		return (0);
 	}
 	if (line == NULL && g_sig != SIGINT)
 	{
 		ft_printf("exit\n");
+		free(line);
 		exit (0);
 	}
+	if (line == NULL)
+		free(line);
 	if (line == NULL)
 		return (0);
 	return (1);
@@ -100,7 +104,7 @@ int	main(int ac, char **av, char **envp)
 	config(env);
 	while ((ac && av) || 1)
 	{
-		line = readline(build_input(env));
+		line = get_input(build_input(env));
 		history(line);
 		dup2(g_stdin, STDIN_FILENO);
 		if (!check_input(line))

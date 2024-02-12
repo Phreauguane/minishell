@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 17:02:19 by jde-meo           #+#    #+#             */
-/*   Updated: 2024/02/11 22:37:02 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/02/12 17:56:33 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ char	*run_cmd(char *cmd, char **envp)
 	add_ppl(&ppl)->cmd = cmd;
 	ppl->fd_out = pipe_fd[1];
 	run_raw(ppl, envp);
+	free(ppl);
 	return (get_next_line(pipe_fd[0]));
 }
 

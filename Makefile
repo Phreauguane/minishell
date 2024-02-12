@@ -23,7 +23,8 @@ FILES		=	main.c				\
 				echo.c				\
 				pwd.c				\
 				export.c			\
-				git.c
+				git.c				\
+				unset.c
 
 SRC			=	$(addprefix $(SRC_DIR),$(FILES))
 

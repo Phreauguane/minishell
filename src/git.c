@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 21:05:31 by jde-meo           #+#    #+#             */
-/*   Updated: 2024/02/11 22:08:01 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/02/12 17:58:58 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ static void	run2(t_pipeline *ppl, int *stat, char **envp)
 	if (ppl->fd_out != 1)
 		close(ppl->fd_out);
 	waitpid(child1, &stat1, 0);
+	free_ppl(&ppl);
 	dup2(stderr_bk, STDERR_FILENO);
     *stat = stat1;
 }
@@ -93,8 +94,8 @@ char    *run_git(char **envp)
 
 	ppl = NULL;
 	pipe(pipe_fd);
-	add_ppl(&ppl)->cmd = "git";
-	add_prm(&(ppl->prm), "status");
+	add_ppl(&ppl)->cmd = str_adds(NULL, "git", 3);
+	add_prm(&(ppl->prm), str_adds(NULL, "status", 6));
 	ppl->fd_out = pipe_fd[1];
 	run2(ppl, &i, envp);
 	if (i != 0)

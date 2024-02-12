@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:30:38 by larz              #+#    #+#             */
-/*   Updated: 2024/02/11 22:36:51 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/02/12 18:03:25 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ int			run_builtin(t_pipeline *ppl, char ***envp);
 
 /*	INPUT.C			*/
 char 		*build_input(char **envp);
+char		*get_input(char *input);
 
 /*	REDIRECT.C		*/
 void		redirect_out_app(t_pipeline **ppl, char **s, int mode);
@@ -149,6 +150,9 @@ int			pwd(char **envp);
 /*	EXPORT.C		*/
 int			export(t_pipeline *ppl, char ***envp);
 char		**dup_envp(char **envp);
+
+/*	UNSET.C			*/
+int			unset(t_pipeline *ppl, char **envp);
 
 /*	GIT.C			*/
 char    	*run_git(char **envp);

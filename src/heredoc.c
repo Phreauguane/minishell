@@ -6,11 +6,32 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:06:36 by jde-meo           #+#    #+#             */
-/*   Updated: 2024/02/11 22:42:00 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/02/12 17:26:13 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
+
+void	verify_line(char **line, int in)
+{
+	char	*tmp;
+	
+	tmp = NULL;
+	if (!*line || (*line)[ft_strlen(*line) - 1] == '\n')
+		return ;
+	while (!*line || !tmp || (ft_strlen(*line) > 0
+		&& (*line)[ft_strlen(*line) - 1] != '\n'))
+	{
+		dup2(g_stdin, STDIN_FILENO);
+		tmp = get_next_line(in);
+		if (tmp)
+		{
+			//ft_printf(RED"X"YELLOW);
+			*line = str_adds(*line, tmp, ft_strlen(tmp));
+			free(tmp);
+		}
+	}
+}
 
 void	fill_loop(int in, int out, char *limiter, char *lmt)
 {
@@ -22,6 +43,7 @@ void	fill_loop(int in, int out, char *limiter, char *lmt)
 		ft_printf(RED"heredoc ["BOLD_WHITE"%s"RED"] "
 		GREEN"> "YELLOW, lmt);
 		line = get_next_line(in);
+		verify_line(&line, in);
 		dup2(g_stdin, STDIN_FILENO);
 		if (line == NULL)
 			ft_printf("\nminishell: warning: heredoc \
