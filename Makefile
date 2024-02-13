@@ -88,7 +88,7 @@ progress  : lib
 		fi
 		tput sc
 		tput cup $(FILE) 0
-		echo -n $$file "                                                    "
+		echo -n $(FG_GREEN)$$file$(DEF) "                                                    "
 		tput rc
 		sleep .01
 	done;
