@@ -105,7 +105,7 @@ progress  : lib
 
 progress_clean  :
 	@tput cup $(PROG) 0
-	@echo -n $(DEF)$(FG_RED)Cleaning $(FG_GREEN)$(NAME)$(DEF)
+	@echo -n $(DEF)$(FG_RED)Cleaning $(FG_GREEN)$(NAME)$(DEF) "                                                            "
 	@tput cup $(TOP) 0
 	@echo -n "▁▁▁▁▁▁▁▁▁▁"
 	@for file in $(FILES); do \
