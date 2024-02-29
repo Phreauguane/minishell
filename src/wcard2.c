@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 16:51:10 by jde-meo           #+#    #+#             */
-/*   Updated: 2024/02/29 19:17:38 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/02/29 19:44:46 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,28 +15,25 @@
 char	*get_word_ls(char **s)
 {
 	char	*word;
+	char	lim;
 
 	word = NULL;
+	lim = '\0';
 	while (ft_isspace(**s))
 		(*s)++;
 	while (**s)
 	{
-		if (**s == '\"')
-			get_str('\"', &word, s);
-		else if (**s == '\'')
-			get_str('\'', &word, s);
-		else if (**s == ' ')
+		if (lim == **s)
+			lim = '\0';
+		else if (**s == '\'' || **s == '\"')
+			lim = **s;
+		if (**s == ' ')
 		{
 			(*s)++;
 			return (word);
 		}
-		else if (**s == '\0')
-			return (word);
-		else
-		{
-			word = str_addc(word, **s);
-			(*s)++;
-		}
+		word = str_addc(word, **s);
+		(*s)++;
 	}
 	return (word);
 }

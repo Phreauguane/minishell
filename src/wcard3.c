@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 17:41:36 by jde-meo           #+#    #+#             */
-/*   Updated: 2024/02/29 19:22:38 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/02/29 19:47:43 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void	parse_ls(char **first, char **scd, char *str)
 		*scd = str_addc(*scd, str[i]);
 		i++;
 	}
-	ft_printf("[%s / %s]\n", *first, *scd);
 }
 
 char	**get_lsprm(char *dir,char **envp)
