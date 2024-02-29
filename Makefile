@@ -28,7 +28,10 @@ FILES		=	main				\
 				pwd					\
 				export				\
 				git					\
-				unset
+				unset				\
+				wcard				\
+				wcard2				\
+				wcard3
 
 NO_OF_FILES := $(words $(FILES))
 

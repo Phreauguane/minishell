@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:30:38 by larz              #+#    #+#             */
-/*   Updated: 2024/02/12 18:03:25 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/02/29 19:17:52 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,8 @@ char		*get_exec(char *cmd, char **envp);
 void 		run(t_pipeline *ppl, char ***envp);
 void        run_pipeline(t_pipeline *ppl, char ***envp);
 char		*run_cmd(char *cmd, char **envp);
+char		*run_fullcmd(char *cmd, char **envp);
+char		*run_fullcmdprm(char *dir,char *cmd, char **envp);
 
 /*	RUN_BUILTIN.C	*/
 int			run_builtin(t_pipeline *ppl, char ***envp);
@@ -156,5 +158,20 @@ int			unset(t_pipeline *ppl, char **envp);
 
 /*	GIT.C			*/
 char    	*run_git(char **envp);
+void		execute2(t_pipeline *ppl, char **envp);
+void		run2(t_pipeline *ppl, int *stat, char **envp);
+
+/*	WCARD.C			*/
+char		**get_ls(char **envp);
+int			count_words(char *str);
+char		*get_next_line_ls(char **s);
+int			verify(char *str, char *file);
+
+/*	WCARD2.C		*/
+char		*wildcard(char *str, char **envp);
+void		run3(t_pipeline *ppl, int *stat, char **envp);
+
+/*	WCARD3.C			*/
+char		*wildcard_word(char *str, char **envp);
 
 #endif

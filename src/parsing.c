@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 16:10:01 by larz              #+#    #+#             */
-/*   Updated: 2024/02/11 00:05:34 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/02/29 17:07:23 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ t_pipeline	*parse(const char *str, char **envp)
 	int			mode;
 
 	ppl = NULL;
-	s = (char *)str;
+	s = wildcard((char *)str, envp);
 	mode = MODE_NEW_CMD;
 	add_ppl(&ppl);
 	while (*s)

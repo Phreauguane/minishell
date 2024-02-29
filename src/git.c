@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 21:05:31 by jde-meo           #+#    #+#             */
-/*   Updated: 2024/02/12 17:58:58 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/02/29 19:12:56 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	run_git2(char *last_word, int lines, char **line)
             ft_strlen(BOLD_BLACK""BG_RED"✗ "DEF));
 }
 
-static void	execute2(t_pipeline *ppl, char **envp)
+void	execute2(t_pipeline *ppl, char **envp)
 {
 	char	**cmd_args;
 	char	*exec;
@@ -62,7 +62,7 @@ static void	execute2(t_pipeline *ppl, char **envp)
 	exit(ex);
 }
 
-static void	run2(t_pipeline *ppl, int *stat, char **envp)
+void	run2(t_pipeline *ppl, int *stat, char **envp)
 {
 	int		stat1;
 	int		stderr_bk;
