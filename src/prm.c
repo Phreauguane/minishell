@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 18:02:30 by larz              #+#    #+#             */
-/*   Updated: 2024/02/13 12:54:14 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/03/05 15:30:14 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	free_prms(t_prm **prms)
 		return ;
 	if ((*prms)->next != NULL)
 		free_prms(&((*prms)->next));
-	free((*prms)->str);
-	free(*prms);
+	free2((*prms)->str);
+	free2(*prms);
 	*prms = NULL;
 }

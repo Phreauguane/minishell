@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 19:19:16 by jde-meo           #+#    #+#             */
-/*   Updated: 2024/02/11 20:44:41 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/03/05 15:33:47 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	append_env_var(char ***envp, char *var, char *val)
 	new[i] = v;
 	while (--i >= 0)
 		new[i] = (*envp)[i];
-	free(*envp);
+	free2(*envp);
 	*envp = new;
 }
 

@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 15:18:02 by jde-meo           #+#    #+#             */
-/*   Updated: 2024/03/05 15:13:31 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/03/05 15:28:53 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,7 @@ int	count_words(char *str)
 	while (s && *s)
 	{
 		w = get_next_line_ls(&s);
-		if (w)
-			free(w);
+		free2(w);
 		i++;
 	}
 	return (i);
@@ -105,6 +104,6 @@ char	**get_ls(char *prm, char **envp)
 		word = get_next_line_ls(&s);
 		out[size++] = word;
 	}
-	free(ls);
+	free2(ls);
 	return (out);
 }

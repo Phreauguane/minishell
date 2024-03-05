@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 15:47:24 by jde-meo           #+#    #+#             */
-/*   Updated: 2024/02/11 22:50:45 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/03/05 15:34:19 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	cd(t_pipeline *ppl, char **envp)
 	path = str_adds(NULL, pwd, ft_strlen(pwd) - 1);
 	if (exec == 0)
 		set_env_value("PWD", path, envp);
-	free(path);
-	free(pwd);
+	free2(path);
+	free2(pwd);
 	return (exec);
 }

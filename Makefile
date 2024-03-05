@@ -11,6 +11,7 @@ SRC_DIR		=	src/
 OBJ_DIR		=	obj/
 
 FILES		=	main				\
+				sig					\
 				parsing				\
 				parsing2			\
 				prm					\
@@ -106,6 +107,48 @@ progress  : lib
 	@echo $(HEADER)
 	@rm -f compil.log
 
+progress_vg  : lib
+	@mkdir -p $(OBJ_DIR)
+	@tput cup $(PROG) 0
+	@echo -n $(DEF)$(FG_BLUE)Compiling $(FG_GREEN)$(NAME)$(DEF) "                                                             "
+	@tput cup $(TOP) 0
+	@echo -n "▁▁▁▁▁▁▁▁▁▁"
+	@for file in $(FILES); do \
+		echo -n "▁";\
+	done;
+	@tput cup $(MID) 0
+	@echo -n $(BG_BLACK)"Progress ▕"
+	@for file in $(FILES); do \
+		echo -n $(BG_BLACK)" "$(DEF);\
+	done;
+	@tput cup $(BOT) 0
+	@echo -n "▔▔▔▔▔▔▔▔▔▔"
+	@for file in $(FILES); do \
+		echo -n "▔";\
+	done;
+	@tput cup $(MID) 10
+	@for file in $(FILES); do
+		cc -g3 $(INCLUDE) $(LIB) -c $(SRC_DIR)$$file.c -o $(OBJ_DIR)$$file.o 2>> compil.log
+		if [ "$$?" = "0" ]; then
+			echo -n $(BG_GREEN)" "$(DEF)
+		else
+			echo -n $(BG_RED)" "$(DEF)
+		fi
+		tput sc
+		tput cup $(FILE) 0
+		echo -n $(FG_GREEN)$$file$(DEF) "                                                    "
+		tput rc
+		sleep .01
+	done;
+	@tput cup $(FILE) 0
+	@echo -n "                                                    "
+	@$(CC) -g3 $(OBJ_DIR)/*.o -o $(NAME) $(LIBFT_LIB) $(INCLUDE) $(LIB) 2>> compil.log
+	@tput cup $(SUCCESS) 0
+	@echo -n $(FG_RED)
+	@cat compil.log
+	@echo -n $(DEF)
+	@echo $(HEADER)
+	@rm -f compil.log
 
 progress_clean  :
 	@tput cup $(PROG) 0
@@ -166,7 +209,7 @@ run			:	all
 	@clear
 	@./$(NAME)
 
-valgrind	:	valgrind_c
-	@valgrind --suppressions=./valgrind.supp ./$(NAME)
+valgrind	:	lib progress_vg
+	@valgrind --leak-check=full --suppressions=./valgrind.supp ./$(NAME)
 
 .PHONY: all clean fclean re

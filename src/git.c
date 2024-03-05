@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 21:05:31 by jde-meo           #+#    #+#             */
-/*   Updated: 2024/02/29 19:12:56 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/03/05 15:54:10 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	run_git2(char *last_word, int lines, char **line)
 {
 	*line = str_adds(*line, " "BOLD_BLUE, ft_strlen(" "BOLD_BLUE));
 	*line = str_adds(*line, last_word, ft_strlen(last_word));
-	free(last_word);
+	free2(last_word);
 	if (lines == 4)
         *line = str_adds(*line, BOLD_BLACK""BG_GREEN"✓ "DEF,
             ft_strlen(BOLD_BLACK""BG_GREEN"✓ "DEF));
@@ -106,7 +106,7 @@ char    *run_git(char **envp)
 	while (line)
 	{
 		i++;
-		free(line);
+		free2(line);
 		line = get_next_line(pipe_fd[0]);
 	}
 	run_git2(last_word, i, &line);

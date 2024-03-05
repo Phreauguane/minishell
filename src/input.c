@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 17:21:37 by larz              #+#    #+#             */
-/*   Updated: 2024/02/13 13:37:13 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/03/05 15:31:57 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*get_input(char *input)
 	char	*line;
 
 	line = readline(input);
-	free(input);
+	free2(input);
 	return (line);
 }
 
@@ -47,7 +47,7 @@ char	*build_input(char **envp)
 	out = str_adds(out, line, ft_strlen(line));
 	line = run_git(envp);
 	out = str_adds(out, line, ft_strlen(line));
-	free(line);
+	free2(line);
     if (g_exec == 0)
 	    out = str_adds(out, BOLD_GREEN" 8=> "CYAN, ft_strlen(BOLD_GREEN" 8=> "CYAN));
     else

@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:30:38 by larz              #+#    #+#             */
-/*   Updated: 2024/03/05 15:16:06 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/03/05 15:55:53 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,12 @@ typedef struct s_pipeline
 
 /*	MAIN.C			*/
 void		exit_handler(char *msg, char *details, int free_msg, int code);
+int			exit_minishell(int out);
+
+/*	SIG.C			*/
+void		handler(int sig);
+void		config(char **envp);
+int			check_input(char *line);
 
 /*	PARSING.C		*/
 char		*get_word_env(char **s, char **envp);
@@ -114,6 +120,7 @@ char		*run_fullcmdprm(char *dir,char *cmd, char **envp);
 
 /*	RUN_BUILTIN.C	*/
 int			run_builtin(t_pipeline *ppl, char ***envp);
+void		free2(void *ptr);
 
 /*	INPUT.C			*/
 char 		*build_input(char **envp);

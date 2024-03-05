@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 16:36:08 by jde-meo           #+#    #+#             */
-/*   Updated: 2024/02/11 20:03:31 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/03/05 15:33:56 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ void	free_tab(char **tab)
 	i = 0;
 	while (tab[i])
 	{
-		free(tab[i]);
+		free2(tab[i]);
 		i++;
 	}
-	free(tab);
+	free2(tab);
 }
 
 char	*get_exec(char *cmd, char **envp)

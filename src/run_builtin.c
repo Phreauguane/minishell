@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 18:44:46 by jde-meo           #+#    #+#             */
-/*   Updated: 2024/02/12 18:13:22 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/03/05 15:52:12 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	run_builtin(t_pipeline *ppl, char ***envp)
     {
         ft_printf("exit\n");
         free_cmd(ppl);
-        exit(0);
+        return (exit_minishell(1));
     }
 	if (!is_builtin(ppl))
 		return (0);
@@ -72,4 +72,10 @@ int	run_builtin(t_pipeline *ppl, char ***envp)
 	dup2(stdin_bk, STDIN_FILENO);
 	dup2(stdout_bk, STDOUT_FILENO);
 	return (1);
+}
+
+void	free2(void *ptr)
+{
+	if (ptr)
+		free(ptr);
 }

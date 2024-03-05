@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 18:09:27 by larz              #+#    #+#             */
-/*   Updated: 2024/02/10 23:52:55 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/03/05 15:30:02 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,7 @@ void	redirect_out_app(t_pipeline **ppl, char **s, int mode)
 	get_last(*ppl)->fd_out = open(word, O_CREAT | O_APPEND | O_RDWR, S_IRWXU | S_IRWXG | S_IRWXO);
 	if (get_last(*ppl)->fd_out < 0)
 		exit_handler(word, "error while opening/creating file", 1, 1);
-	if (word)
-		free(word);
+	free2(word);
 }
 
 void	redirect_out_normal(t_pipeline **ppl, char **s, int mode)
@@ -42,8 +41,7 @@ void	redirect_out_normal(t_pipeline **ppl, char **s, int mode)
 	get_last(*ppl)->fd_out = open(word, O_CREAT | O_TRUNC | O_WRONLY, S_IRWXU | S_IRWXG | S_IRWXO);
 	if (get_last(*ppl)->fd_out < 0)
 		exit_handler(word, "error while opening/creating file", 1, 1);
-	if (word)
-		free(word);
+	free2(word);
 }
 
 void	redirect_in_normal(t_pipeline **ppl, char **s, int mode)
@@ -59,6 +57,5 @@ void	redirect_in_normal(t_pipeline **ppl, char **s, int mode)
 	get_last(*ppl)->fd_in = open(word, O_RDONLY);
 	if (get_last(*ppl)->fd_in < 0)
 		exit_handler(word, "No such file or directory", 1, 1);
-	if (word)
-		free(word);
+	free2(word);
 }

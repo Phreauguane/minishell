@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 23:32:06 by jde-meo           #+#    #+#             */
-/*   Updated: 2024/02/11 22:10:23 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/03/05 15:30:52 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	add_exec_status(char **s, char **word)
 	(*s) += 2;
 	val = ft_itoa(g_exec);
 	*word = str_adds(*word, val, ft_strlen(val));
-	free(val);
+	free2(val);
 }
 
 void	add_env_var(char **s, char **word, char **envp)
@@ -49,7 +49,7 @@ void	add_env_var(char **s, char **word, char **envp)
 	}
 	val = get_env_value(var, envp);
 	*word = str_adds(*word, val, ft_strlen(val));
-	free(var);
+	free2(var);
 }
 
 void	add_str(char **s, char **word, char **envp, char lim)

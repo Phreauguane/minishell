@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 21:48:24 by jde-meo           #+#    #+#             */
-/*   Updated: 2024/02/12 17:52:14 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/03/05 15:32:21 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	save_dir(char **envp)
 	g_dir = str_adds(NULL, wd, ft_strlen(wd) - 1);
 	g_dir = str_addc(g_dir, '/');
 	g_dir = str_adds(g_dir, HISTORY_FILE, ft_strlen(HISTORY_FILE));
-	free(wd);
+	free2(wd);
 }
 
 void	open_history(char **envp)
@@ -72,8 +72,8 @@ void	open_history(char **envp)
 		{
 			l = str_adds(NULL, line, ft_strlen(line) - 1);
             add_history(l);
-            free(line);
-			free(l);
+            free2(line);
+			free2(l);
 		}
     }
 	if (fd >= 0)
@@ -83,5 +83,5 @@ void	open_history(char **envp)
 void	cleanup_history()
 {
 	clear_history();
-	free(g_dir);
+	free2(g_dir);
 }

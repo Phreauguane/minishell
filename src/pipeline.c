@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipeline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: larz <larz@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 16:39:13 by jde-meo           #+#    #+#             */
-/*   Updated: 2024/02/08 19:02:09 by larz             ###   ########.fr       */
+/*   Updated: 2024/03/05 15:30:40 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_pipeline	*add_ppl(t_pipeline **ppl)
 
 void	free_cmd(t_pipeline *ppl)
 {
-    free(ppl->cmd);
+    free2(ppl->cmd);
     free_prms(&(ppl->prm));
 	if (ppl->fd_in != 0)
 		close(ppl->fd_in);
@@ -55,7 +55,7 @@ void	free_ppl(t_pipeline **ppl)
 	if ((*ppl)->next != NULL)
 		free_ppl(&((*ppl)->next));
 	free_cmd(*ppl);
-	free(*ppl);
+	free2(*ppl);
 	*ppl = NULL;
 }
 

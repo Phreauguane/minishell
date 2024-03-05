@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 16:52:41 by jde-meo           #+#    #+#             */
-/*   Updated: 2024/02/12 17:03:31 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/03/05 15:29:02 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	remove_env_var(char *var, char **envp)
 	i = find_var_i(var, envp);
 	if (i < 0)
 		return ;
-	free(envp[i]);
+	free2(envp[i]);
 	while (envp[i])
 	{
 		envp[i] = envp[i + 1];

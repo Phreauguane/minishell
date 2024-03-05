@@ -6,60 +6,20 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:29:08 by larz              #+#    #+#             */
-/*   Updated: 2024/02/29 17:06:48 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/03/05 15:50:55 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-int g_sig;
 int g_exec;
 int	g_stdin;
+int	g_end;
 
-void	handler(int sig)
+int	exit_minishell(int out)
 {
-	g_sig = sig;
-	if (sig == SIGQUIT)
-		g_sig = -1;
-	if (sig == SIGINT)
-	{
-		write(0, "\n", 1);
-		close(0);
-	}
-}
-
-void	config(char **envp)
-{
-	struct sigaction	s;
-
-	open_history(envp);
-	update_shlvl(envp);
-	ft_bzero(&s, sizeof(s));
-	s.sa_handler = SIG_IGN;
-	sigaction(SIGQUIT, &s, NULL);
-	signal(SIGINT, handler); 	// CTRL C
-	
-}
-
-int	check_input(char *line)
-{
-	if (g_sig == SIGINT)
-	{
-		g_sig = -1;
-		free(line);
-		return (0);
-	}
-	if (line == NULL && g_sig != SIGINT)
-	{
-		ft_printf("exit\n");
-		free(line);
-		exit (0);
-	}
-	if (line == NULL)
-		free(line);
-	if (line == NULL)
-		return (0);
-	return (1);
+	g_end = 1;
+	return (out);
 }
 
 void	exit_handler(char *msg, char *details, int free_msg, int code)
@@ -68,28 +28,15 @@ void	exit_handler(char *msg, char *details, int free_msg, int code)
 		ft_printf("minishell: %s: %s\n", msg, details);
 	else if (msg)
 		ft_printf("minishell: %s\n", msg);
-	if (free_msg && msg)
-		free(msg);
+	if (free_msg)
+		free2(msg);
 	g_exec = code;
 }
 
-void	print_pipeline(t_pipeline *ppl)
+void	cleanup(char **env)
 {
-	t_prm	*p;
-
-	while (ppl)
-	{
-		ft_printf("PIPELINE : %p\nCOMMAND : %s\n", ppl, ppl->cmd);
-		ft_printf("PARAMS :\n");
-		p = ppl->prm;
-		while (p)
-		{
-			ft_printf("\t[%s]\n", p->str);
-			p = p->next;
-		}
-		ppl = ppl->next;
-	}
-	ft_printf("PIPELINE : %p\n", ppl);
+	ft_free_split(env);
+	cleanup_history();
 }
 
 int	main(int ac, char **av, char **envp)
@@ -98,11 +45,11 @@ int	main(int ac, char **av, char **envp)
 	char		**env;
 	t_pipeline	*ppl;
 
-	g_sig = -1;
 	g_stdin = dup(STDIN_FILENO);
 	env = dup_envp(envp);
+	g_end = 0;
 	config(env);
-	while ((ac && av) || 1)
+	while (g_end != 1 && ((ac && av) || 1))
 	{
 		line = get_input(build_input(env));
 		history(line);
@@ -110,10 +57,9 @@ int	main(int ac, char **av, char **envp)
 		if (!check_input(line))
 			continue ;
 		ppl = parse(line, env);
-		free(line);
+		free2(line);
 		ft_printf(COLOR);
         run_pipeline(ppl, &env);
 	}
-	ft_free_split(env);
-	cleanup_history();
+	cleanup(env);
 }

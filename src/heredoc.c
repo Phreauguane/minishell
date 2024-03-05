@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:06:36 by jde-meo           #+#    #+#             */
-/*   Updated: 2024/02/12 17:26:13 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/03/05 15:33:24 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,8 @@ void	verify_line(char **line, int in)
 		dup2(g_stdin, STDIN_FILENO);
 		tmp = get_next_line(in);
 		if (tmp)
-		{
-			//ft_printf(RED"X"YELLOW);
 			*line = str_adds(*line, tmp, ft_strlen(tmp));
-			free(tmp);
-		}
+		free2(tmp);
 	}
 }
 
@@ -50,13 +47,9 @@ void	fill_loop(int in, int out, char *limiter, char *lmt)
 delimited by end-of-file (wanted \'%s\')\n", lmt);
 		if (line == NULL)
 			return ;
-		if (ft_strncmp(line, limiter, ft_strlen(limiter) + 1) == 0)
-		{
-			free(line);
-			return ;
-		}
-		write(out, line, ft_strlen(line));
-		free(line);
+		if (ft_strncmp(line, limiter, ft_strlen(limiter) + 1) != 0)
+			write(out, line, ft_strlen(line));
+		free2(line);
 	}
 }
 
@@ -77,6 +70,6 @@ void	heredoc(t_pipeline **ppl, char **s, int mode)
 	get_last(*ppl)->fd_in = pipe_fd[0];
 	fill_loop(STDIN_FILENO, pipe_fd[1], limiter, lmt);
 	close(pipe_fd[1]);
-	free(limiter);
-	free(lmt);
+	free2(limiter);
+	free2(lmt);
 }

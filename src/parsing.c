@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 16:10:01 by larz              #+#    #+#             */
-/*   Updated: 2024/02/29 17:07:23 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/03/05 15:58:14 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	handle_parsing(t_pipeline **ppl, char **s, int *mode, char **envp)
 	if (**s == '|')
 	{
 		if (*mode == MODE_NEW_CMD)
-			exit_handler("parsing errorn near token |", NULL, 0, 2);
+			exit_handler("parsing error near token |", NULL, 0, 2);
 		pipe(pipe_fd);
 		get_last(*ppl)->fd_out = pipe_fd[1];
 		add_ppl(ppl);
@@ -100,14 +100,17 @@ int	handle_parsing(t_pipeline **ppl, char **s, int *mode, char **envp)
 t_pipeline	*parse(const char *str, char **envp)
 {
 	char		*s;
+	char		*bk;
 	t_pipeline	*ppl;
 	int			mode;
 
 	ppl = NULL;
 	s = wildcard((char *)str, envp);
+	bk = s;
 	mode = MODE_NEW_CMD;
 	add_ppl(&ppl);
 	while (*s)
 		handle_parsing(&ppl, &s, &mode, envp);
+	free2(bk);
 	return (ppl);
 }
