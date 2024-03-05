@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 15:18:02 by jde-meo           #+#    #+#             */
-/*   Updated: 2024/02/29 19:19:23 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/03/05 15:13:31 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int	count_words(char *str)
 	return (i);
 }
 
-char	**get_ls(char **envp)
+char	**get_ls(char *prm, char **envp)
 {
 	int		size;
 	char	*ls;
@@ -91,7 +91,10 @@ char	**get_ls(char **envp)
 	char	*word;
 	char	**out;
 
-	ls = run_fullcmdprm("-a", "ls", envp);
+	if (prm)
+		ls = run_fullcmdprm(prm, "ls", envp);
+	else
+		ls = run_fullcmd("ls", envp);
 	size = count_words(ls);
 	out = malloc(sizeof(char *) * (size + 1));
 	out[size] = NULL;

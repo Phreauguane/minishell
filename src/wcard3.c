@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 17:41:36 by jde-meo           #+#    #+#             */
-/*   Updated: 2024/02/29 19:47:43 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/03/05 15:17:45 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ char	*wildcard_word(char *str, char **envp)
 	if (ft_strchr(str, '*') == NULL)
 		return (str);
 	parse_ls(&first, &scd, str);
-	tab = get_ls(envp);
+	tab = get_ls_verif(first, envp);
 	bk = tab;
 	out = wildcard_word2(tab, first, scd, envp);
 	if (!out)

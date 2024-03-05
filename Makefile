@@ -31,7 +31,8 @@ FILES		=	main				\
 				unset				\
 				wcard				\
 				wcard2				\
-				wcard3
+				wcard3				\
+				wcard4
 
 NO_OF_FILES := $(words $(FILES))
 

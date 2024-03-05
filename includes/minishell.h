@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:30:38 by larz              #+#    #+#             */
-/*   Updated: 2024/02/29 19:17:52 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/03/05 15:16:06 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,7 +162,7 @@ void		execute2(t_pipeline *ppl, char **envp);
 void		run2(t_pipeline *ppl, int *stat, char **envp);
 
 /*	WCARD.C			*/
-char		**get_ls(char **envp);
+char		**get_ls(char *prm, char **envp);
 int			count_words(char *str);
 char		*get_next_line_ls(char **s);
 int			verify(char *str, char *file);
@@ -173,5 +173,9 @@ void		run3(t_pipeline *ppl, int *stat, char **envp);
 
 /*	WCARD3.C			*/
 char		*wildcard_word(char *str, char **envp);
+
+/*	WCARD4.C			*/
+int			verify_first(char *first, char *dir);
+char		**get_ls_verif(char *first, char **envp);
 
 #endif
