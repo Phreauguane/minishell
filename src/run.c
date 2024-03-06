@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 17:02:19 by jde-meo           #+#    #+#             */
-/*   Updated: 2024/03/05 15:29:37 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/03/05 16:20:13 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ char	*run_fullcmdprm(char *dir,char *cmd, char **envp)
 	add_prm(&(ppl->prm), str_adds(NULL, dir, ft_strlen(dir)));
 	ppl->fd_out = pipe_fd[1];
 	run3(ppl, &bk, envp);
-	free2(ppl);
+	free_ppl(&ppl);
 	line = get_next_line(pipe_fd[0]);
 	while (line && line[0])
 	{

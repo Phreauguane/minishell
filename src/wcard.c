@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 15:18:02 by jde-meo           #+#    #+#             */
-/*   Updated: 2024/03/05 15:28:53 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/03/05 16:16:28 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,32 +14,27 @@
 
 int	verify(char *str, char *file)
 {
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	while (str[i])
+	while (*str)
 	{
-		if (str[i] != '*' && str[i] != file[j])
+		if (*str != '*' && *str != *file)
 			return (0);
-		if (str[i] == '*')
+		if (*str == '*')
 		{
-			while (str[i] == '*')
-				i++;
-			while (file[j] != str[i])
+			while (*str == '*')
+				str++;
+			while (*file != *str)
 			{
-				if (!file[j])
-					return (str[i] == '\0');
-				j++;
+				if (!*file)
+					return (*str == '\0');
+				file++;
 			}
 		}
-		if (file[j])
-			j++;
-		if (str[i])
-			i++;
+		if (*file)
+			file++;
+		if (*str)
+			str++;
 	}
-	return (file[j] == str[i]);
+	return (*file == *str);
 }
 
 char	*get_next_line_ls(char **s)

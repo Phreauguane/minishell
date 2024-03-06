@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:29:08 by larz              #+#    #+#             */
-/*   Updated: 2024/03/05 15:50:55 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/03/06 20:55:48 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,17 @@ int	exit_minishell(int out)
 void	exit_handler(char *msg, char *details, int free_msg, int code)
 {
 	if (msg && details)
-		ft_printf("minishell: %s: %s\n", msg, details);
+	{
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(msg, 2);
+		ft_putstr_fd(": ", 2);
+		ft_putendl_fd(details, 2);
+	}
 	else if (msg)
-		ft_printf("minishell: %s\n", msg);
+	{
+		ft_putstr_fd("minishell: ", STDERR_FILENO);
+		ft_putendl_fd(msg, STDERR_FILENO);
+	}
 	if (free_msg)
 		free2(msg);
 	g_exec = code;
@@ -54,12 +62,14 @@ int	main(int ac, char **av, char **envp)
 		line = get_input(build_input(env));
 		history(line);
 		dup2(g_stdin, STDIN_FILENO);
-		if (!check_input(line))
-			continue ;
-		ppl = parse(line, env);
-		free2(line);
-		ft_printf(COLOR);
-        run_pipeline(ppl, &env);
+		if (check_input(line))
+		{
+			ppl = parse(line, env);
+			print_pipeline(ppl);
+			free2(line);
+			ft_printf(COLOR);
+        	run_pipeline(ppl, &env);
+		}
 	}
 	cleanup(env);
 }

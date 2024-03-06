@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 16:52:41 by jde-meo           #+#    #+#             */
-/*   Updated: 2024/03/05 15:29:02 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/03/06 20:57:46 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,25 @@ int	unset(t_pipeline *ppl, char **envp)
 		p = p->next;
 	}
 	return (0);
+}
+
+void    print_pipeline(t_pipeline *ppl)
+{
+    t_prm    *p;
+
+    while (ppl)
+    {
+        ft_printf("PIPELINE : %p\nCOMMAND : %s\n", ppl, ppl->cmd);
+		ft_printf("INPUT : %d\nOUTPUT : %d\nERROR : %d\n", ppl->fd_in,
+			ppl->fd_out, ppl->error);
+        ft_printf("PARAMS :\n");
+        p = ppl->prm;
+        while (p)
+        {
+            ft_printf("\t[%s]\n", p->str);
+            p = p->next;
+        }
+        ppl = ppl->next;
+    }
+    ft_printf("PIPELINE : %p\n", ppl);
 }

@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 15:42:47 by jde-meo           #+#    #+#             */
-/*   Updated: 2024/03/05 16:00:49 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/03/06 20:43:35 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	check_input(char *line)
 		exit_minishell(0);
 		return (0);
 	}
-	if (line == NULL)
+	if (line == NULL || line[0] == '\0')
 		return (0);
 	return (1);
 }

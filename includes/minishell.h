@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:30:38 by larz              #+#    #+#             */
-/*   Updated: 2024/03/05 15:55:53 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/03/06 20:54:33 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@
 extern int	g_exec;
 extern int	g_stdin;
 
-typedef	struct s_prm
+typedef struct s_prm
 {
 	char			*str;
 	struct s_prm	*next;
@@ -74,7 +74,7 @@ typedef struct s_pipeline
 	t_prm				*prm;
 	int					fd_in;
 	int					fd_out;
-    int					error;
+	int					error;
 	struct s_pipeline	*next;
 }	t_pipeline;
 
@@ -108,22 +108,22 @@ t_pipeline	*get_last(t_pipeline *ppl);
 
 /*	EXECUTE.C		*/
 void		execute(t_pipeline *ppl, char **envp);
-char    	**build_prms(t_pipeline *ppl);
+char		**build_prms(t_pipeline *ppl);
 char		*get_exec(char *cmd, char **envp);
 
 /*	RUN.C			*/
-void 		run(t_pipeline *ppl, char ***envp);
-void        run_pipeline(t_pipeline *ppl, char ***envp);
+void		run(t_pipeline *ppl, char ***envp);
+void		run_pipeline(t_pipeline *ppl, char ***envp);
 char		*run_cmd(char *cmd, char **envp);
 char		*run_fullcmd(char *cmd, char **envp);
-char		*run_fullcmdprm(char *dir,char *cmd, char **envp);
+char		*run_fullcmdprm(char *dir, char *cmd, char **envp);
 
 /*	RUN_BUILTIN.C	*/
 int			run_builtin(t_pipeline *ppl, char ***envp);
 void		free2(void *ptr);
 
 /*	INPUT.C			*/
-char 		*build_input(char **envp);
+char		*build_input(char **envp);
 char		*get_input(char *input);
 
 /*	REDIRECT.C		*/
@@ -132,10 +132,10 @@ void		redirect_out_normal(t_pipeline **ppl, char **s, int mode);
 void		redirect_in_normal(t_pipeline **ppl, char **s, int mode);
 
 /*  HEREDOC.C   	*/
-void    	heredoc(t_pipeline **ppl, char **s, int mode);
+void		heredoc(t_pipeline **ppl, char **s, int mode);
 
 /*  ENV.C       	*/
-char        *get_env_value(char *var, char **envp);
+char		*get_env_value(char *var, char **envp);
 void		set_env_value(char *var, char *value, char **envp);
 int			env(char **envp);
 void		update_shlvl(char **envp);
@@ -147,7 +147,7 @@ int			cd(t_pipeline *ppl, char **envp);
 /*	HISTORY.C		*/
 void		history(char *input);
 void		open_history(char **envp);
-void		cleanup_history();
+void		cleanup_history(void);
 
 /*	ECHO.C			*/
 int			echo(t_pipeline *ppl);
@@ -162,9 +162,10 @@ char		**dup_envp(char **envp);
 
 /*	UNSET.C			*/
 int			unset(t_pipeline *ppl, char **envp);
+void    	print_pipeline(t_pipeline *ppl);
 
 /*	GIT.C			*/
-char    	*run_git(char **envp);
+char		*run_git(char **envp);
 void		execute2(t_pipeline *ppl, char **envp);
 void		run2(t_pipeline *ppl, int *stat, char **envp);
 

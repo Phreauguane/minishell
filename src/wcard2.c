@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 16:51:10 by jde-meo           #+#    #+#             */
-/*   Updated: 2024/03/05 16:03:42 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/03/06 21:14:26 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*get_word_ls(char **s)
 			lim = '\0';
 		else if (**s == '\'' || **s == '\"')
 			lim = **s;
-		if (**s == ' ')
+		if (**s == ' ' && lim == '\0')
 		{
 			(*s)++;
 			return (word);
@@ -77,9 +77,7 @@ char	*wildcard(char *line, char **envp)
 		if (!wcard)
 			continue ;
 		out = str_adds(out, wcard, ft_strlen(wcard));
-		free2(word);
-		if (wcard != word)
-			free2(wcard);
+		free2(wcard);
 	}
 	return (out);
 }
