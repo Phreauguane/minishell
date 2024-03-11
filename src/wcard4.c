@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 14:56:51 by jde-meo           #+#    #+#             */
-/*   Updated: 2024/03/06 20:52:49 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/03/11 22:58:12 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	verify_first(char *first, char *dir)
 
 char	**get_ls_verif(char *first, char **envp)
 {
-	if (first[0] == '.')
+	if (first && first[0] == '.')
 		return (get_ls("-a", envp));
 	return (get_ls(NULL, envp));
 }
