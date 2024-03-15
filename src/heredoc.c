@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
+/*   By: larz <larz@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:06:36 by jde-meo           #+#    #+#             */
-/*   Updated: 2024/03/05 15:33:24 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/03/13 11:42:45 by larz             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ delimited by end-of-file (wanted \'%s\')\n", lmt);
 			return ;
 		if (ft_strncmp(line, limiter, ft_strlen(limiter) + 1) != 0)
 			write(out, line, ft_strlen(line));
+		else
+			return (free2(line));
 		free2(line);
 	}
 }
@@ -60,8 +62,6 @@ void	heredoc(t_pipeline **ppl, char **s, int mode)
 	char	*lmt;
 
 	(*s) += 2;
-	if (mode != MODE_CMD_PRM)
-		return exit_handler("Parse error, no command found", NULL, 0, 1);
 	lmt = get_word(s);
 	if (!lmt || *lmt == '\0')
 		return exit_handler("Parse error, no limiter found", NULL, 0, 1);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
+/*   By: larz <larz@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:30:38 by larz              #+#    #+#             */
-/*   Updated: 2024/03/06 20:54:33 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/03/15 12:14:22 by larz             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,19 @@
 # include <readline/history.h>
 # include <signal.h>
 # include <errno.h>
+# include <limits.h>
 
+/*	PARSING STATES				*/
 # define MODE_NEW_CMD 1
 # define MODE_CMD_PRM 2
 
+/*	REDIRECTION TYPES			*/
 # define RDR_OUT_APP 		1
 # define RDR_OUT_NEW 		2
 # define RDR_IN_NORMAL 		3
 # define RDR_IN_HEREDOC 	4
 
+/*	COLOR CODES					*/
 # define DEF 			"\001\e\033[0m\002"
 # define RED 			"\001\e\033[0;31m\002"
 # define GREEN 			"\001\e\033[0;32m\002"
@@ -57,17 +61,34 @@
 # define FG_GREEN		"\001\e\033[38;2;0;200;0m\002"
 # define FG_RED			"\001\e\033[38;2;200;70;0m\002"
 
+/*	COMMAND HISTORY FILE		*/
 # define HISTORY_FILE	".history"
 
+/*	PARSING STATE ERROR CODES	*/
+# define NO_ERROR			0
+# define ERROR_NO_CMD		1
+# define ERROR_INVALID_CMD	2
+# define ERROR_PARSING		3
+
+/*	BINARY TREE NODE TYPES		*/
+# define TYPE_CMD	0
+# define TYPE_AND	1
+# define TYPE_OR	2
+
+/*	GLOBAL VQRIABLES			*/
+/*		LAST COMMAND EXIT STATUS*/
 extern int	g_exec;
+/*		STDIN BACKUP			*/
 extern int	g_stdin;
 
+/*	COMMAND PARAMS STRUCTURE	*/
 typedef struct s_prm
 {
 	char			*str;
 	struct s_prm	*next;
 }	t_prm;
 
+/*	PIPELINE STRUCTURE			*/
 typedef struct s_pipeline
 {
 	char				*cmd;
@@ -77,6 +98,17 @@ typedef struct s_pipeline
 	int					error;
 	struct s_pipeline	*next;
 }	t_pipeline;
+
+/*	BINARY TREE STRUCTURE		*/
+typedef struct s_node
+{
+    char            *line;
+	t_pipeline		*ppl;
+    int				type;
+    struct s_node	*child_1;
+    struct s_node	*child_2;
+    struct s_node	*parent;
+}    t_node;
 
 /*	MAIN.C			*/
 void		exit_handler(char *msg, char *details, int free_msg, int code);
@@ -95,6 +127,10 @@ t_pipeline	*parse(const char *str, char **envp);
 
 /*	PARSING2.C		*/
 void		check_env(char **s, char **word, char **envp);
+
+/*	PIPE.C*/
+void		create_pipe(t_pipeline **ppl, char **s, int *mode);
+int			verif_pipeline(t_pipeline **ppl, char **envp);
 
 /*	PRM.C			*/
 void		add_prm(t_prm **prms, char *prm);
@@ -121,6 +157,7 @@ char		*run_fullcmdprm(char *dir, char *cmd, char **envp);
 /*	RUN_BUILTIN.C	*/
 int			run_builtin(t_pipeline *ppl, char ***envp);
 void		free2(void *ptr);
+int			is_builtin(t_pipeline *ppl);
 
 /*	INPUT.C			*/
 char		*build_input(char **envp);

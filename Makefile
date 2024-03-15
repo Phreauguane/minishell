@@ -14,6 +14,7 @@ FILES		=	main				\
 				sig					\
 				parsing				\
 				parsing2			\
+				pipe				\
 				prm					\
 				pipeline			\
 				execute				\
@@ -33,7 +34,8 @@ FILES		=	main				\
 				wcard				\
 				wcard2				\
 				wcard3				\
-				wcard4
+				wcard4				\
+				run_tree			
 
 NO_OF_FILES := $(words $(FILES))
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
+/*   By: larz <larz@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 16:10:01 by larz              #+#    #+#             */
-/*   Updated: 2024/03/05 15:58:14 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/03/13 11:39:54 by larz             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,21 +70,10 @@ void	read_data(t_pipeline **ppl, char **s, int *mode, char **envp)
 
 int	handle_parsing(t_pipeline **ppl, char **s, int *mode, char **envp)
 {
-	int	pipe_fd[2];
-	
 	while (ft_isspace(**s))
 		(*s)++;
 	if (**s == '|')
-	{
-		if (*mode == MODE_NEW_CMD)
-			exit_handler("parsing error near token |", NULL, 0, 2);
-		pipe(pipe_fd);
-		get_last(*ppl)->fd_out = pipe_fd[1];
-		add_ppl(ppl);
-		get_last(*ppl)->fd_in = pipe_fd[0];
-		*mode = MODE_NEW_CMD;
-		(*s)++;
-	}
+		create_pipe(ppl, s, mode);
 	if (**s == '>' && *(*s + 1) == '>')
 		redirect_out_app(ppl, s, *mode);
 	else if (**s == '>')

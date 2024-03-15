@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
+/*   By: larz <larz@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 18:09:27 by larz              #+#    #+#             */
-/*   Updated: 2024/03/05 15:30:02 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/03/13 11:43:25 by larz             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ void	redirect_out_app(t_pipeline **ppl, char **s, int mode)
 {
 	char	*word;
 	
-	if (mode != MODE_CMD_PRM)
-		exit_handler("parsing error", NULL, 0, 1);
 	(*s) += 2;
 	word = get_word(s);
 	if (get_last(*ppl)->fd_out != 1)
@@ -32,8 +30,6 @@ void	redirect_out_normal(t_pipeline **ppl, char **s, int mode)
 {
 	char	*word;
 	
-	if (mode != MODE_CMD_PRM)
-		exit_handler("parsing error", NULL, 0, 1);
 	(*s)++;
 	word = get_word(s);
 	if (get_last(*ppl)->fd_out != 1)
@@ -47,12 +43,10 @@ void	redirect_out_normal(t_pipeline **ppl, char **s, int mode)
 void	redirect_in_normal(t_pipeline **ppl, char **s, int mode)
 {
 	char	*word;
-	
-	if (mode != MODE_CMD_PRM)
-		exit_handler("parsing error", NULL, 0, 1);
+
 	(*s)++;
 	word = get_word(s);
-	if (get_last(*ppl)->fd_in != 1)
+	if (get_last(*ppl)->fd_in != 0)
 		close(get_last(*ppl)->fd_in);
 	get_last(*ppl)->fd_in = open(word, O_RDONLY);
 	if (get_last(*ppl)->fd_in < 0)

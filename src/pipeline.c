@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipeline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
+/*   By: larz <larz@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 16:39:13 by jde-meo           #+#    #+#             */
-/*   Updated: 2024/03/06 20:52:41 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/03/15 12:08:32 by larz             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	free_cmd(t_pipeline *ppl)
 
 void	free_ppl(t_pipeline **ppl)
 {
-	if (*ppl == NULL)
+	if (ppl == NULL || *ppl == NULL)
 		return ;
 	if ((*ppl)->next != NULL)
 		free_ppl(&((*ppl)->next));

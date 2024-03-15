@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wcard3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
+/*   By: larz <larz@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 17:41:36 by jde-meo           #+#    #+#             */
-/*   Updated: 2024/03/11 23:02:10 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/03/13 14:48:34 by larz             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char	**get_lsprm(char *dir,char **envp)
 	dir2 = ft_strdup(dir);
 	dir2 = str_addc(dir2, '/');
 	ls = run_fullcmdprm(dir2, ft_strdup("ls"), envp);
-	free2(dir2);
+	free(dir2);
 	size = count_words(ls);
 	out = malloc(sizeof(char *) * (size + 1));
 	out[size] = NULL;
@@ -56,7 +56,7 @@ char	**get_lsprm(char *dir,char **envp)
 		word = get_next_line_ls(&s);
 		out[size++] = word;
 	}
-	free2(ls);
+	free(ls);
 	return (out);
 }
 

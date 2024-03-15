@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
+/*   By: larz <larz@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:29:08 by larz              #+#    #+#             */
-/*   Updated: 2024/03/06 20:55:48 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/03/13 12:04:35 by larz             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,9 @@ int	main(int ac, char **av, char **envp)
 		if (check_input(line))
 		{
 			ppl = parse(line, env);
+			ft_printf(RED);
 			print_pipeline(ppl);
+			ft_printf(DEF);
 			free2(line);
 			ft_printf(COLOR);
         	run_pipeline(ppl, &env);

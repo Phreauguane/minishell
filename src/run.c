@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
+/*   By: larz <larz@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 17:02:19 by jde-meo           #+#    #+#             */
-/*   Updated: 2024/03/11 23:02:46 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/03/15 11:35:50 by larz             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,11 @@ void    run(t_pipeline *ppl, char ***envp)
 void    run_pipeline(t_pipeline *ppl, char ***envp)
 {
     t_pipeline  *p;
+	int			err;
     
 	p = ppl;
-	while (p)
+	err = verif_pipeline(&ppl, *envp);
+	while (!err && p)
 	{
 		dup2(g_stdin, STDIN_FILENO);
 		if (p->error == 0)
