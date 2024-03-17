@@ -197,7 +197,7 @@ clean		:	clean_lib progress_clean
 
 fclean		:	clean
 	@rm -f $(NAME)
-	@rm	-f .history
+###@rm	-f .history
 
 re			:	fclean all
 
