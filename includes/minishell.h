@@ -6,7 +6,7 @@
 /*   By: larz <larz@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:30:38 by larz              #+#    #+#             */
-/*   Updated: 2024/03/15 12:14:22 by larz             ###   ########.fr       */
+/*   Updated: 2024/03/16 17:29:47 by larz             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ typedef struct s_pipeline
 {
 	char				*cmd;
 	t_prm				*prm;
+	pid_t				pid;
 	int					fd_in;
 	int					fd_out;
 	int					error;

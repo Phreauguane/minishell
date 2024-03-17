@@ -6,7 +6,7 @@
 /*   By: larz <larz@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 17:02:19 by jde-meo           #+#    #+#             */
-/*   Updated: 2024/03/15 11:35:50 by larz             ###   ########.fr       */
+/*   Updated: 2024/03/16 17:43:34 by larz             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,27 +29,27 @@ char	*run_cmd(char *cmd, char **envp)
 void    run(t_pipeline *ppl, char ***envp)
 {
 	int		stat1;
-	pid_t	child1;
+	pid_t	child;
 
 	if (run_builtin(ppl, envp))
 		return ;
-	child1 = fork();
-	if (child1 < 0)
+	child = fork();
+	if (child < 0)
 		return ;
-	if (child1 == 0)
+	if (child == 0)
 		execute(ppl, *envp);
 	if (ppl->fd_in != 0)
 		close(ppl->fd_in);
 	if (ppl->fd_out != 1)
 		close(ppl->fd_out);
-	waitpid(child1, &stat1, 0);
-    g_exec = stat1;
+	ppl->pid = child;
 }
 
 void    run_pipeline(t_pipeline *ppl, char ***envp)
 {
     t_pipeline  *p;
 	int			err;
+	int			status;
     
 	p = ppl;
 	err = verif_pipeline(&ppl, *envp);
@@ -58,6 +58,16 @@ void    run_pipeline(t_pipeline *ppl, char ***envp)
 		dup2(g_stdin, STDIN_FILENO);
 		if (p->error == 0)
 			run(p, envp);
+		p = p->next;
+	}
+	p = ppl;
+	while (!err && p)
+	{
+		status = 0;
+		if (p->error == 0)
+			waitpid(p->pid, &status, 0);
+		if (p->error == 0)
+			g_exec = status;
 		p = p->next;
 	}
 	free_ppl(&ppl);

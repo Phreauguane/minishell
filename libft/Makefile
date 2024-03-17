@@ -76,11 +76,11 @@ progress  :
 		fi
 		tput sc
 		tput cup $(FILE) 0
-		echo -n $(FG_GREEN)$$file$(DEF) "                                                    "
+		echo -n $(FG_GREEN)$$file$(DEF) "                "
 		tput rc
 	done;
 	@tput cup $(FILE) 0
-	@echo -n "                                                    "
+	@echo -n "                "
 	@ar rcs $(NAME) *.o 2>> ../compil.log
 	@tput cup $(SUCCESS) 0
 
@@ -109,12 +109,12 @@ progress_clean  :
 		echo -n $(BG_RED)" "$(DEF)
 		tput sc
 		tput cup $(FILE) 0
-		echo -n $(FG_RED)$$file$(DEF) "                                                    "
+		echo -n $(FG_RED)$$file$(DEF) "                "
 		tput rc
 		sleep .01
 	done;
 	@tput cup $(FILE) 0
-	@echo -n "                                                    "
+	@echo -n "                "
 	@rm -f $(NAME)
 	@tput cup $(SUCCESS) 0
 

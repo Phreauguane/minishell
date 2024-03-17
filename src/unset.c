@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
+/*   By: larz <larz@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 16:52:41 by jde-meo           #+#    #+#             */
-/*   Updated: 2024/03/06 20:57:46 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/03/16 17:16:21 by larz             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void    print_pipeline(t_pipeline *ppl)
 {
     t_prm    *p;
 
+	ft_printf(RED);
     while (ppl)
     {
         ft_printf("PIPELINE : %p\nCOMMAND : %s\n", ppl, ppl->cmd);
@@ -70,4 +71,5 @@ void    print_pipeline(t_pipeline *ppl)
         ppl = ppl->next;
     }
     ft_printf("PIPELINE : %p\n", ppl);
+	ft_printf(DEF);
 }

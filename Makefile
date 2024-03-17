@@ -69,7 +69,7 @@ SUCCESS = 10
 progress  : lib
 	@mkdir -p $(OBJ_DIR)
 	@tput cup $(PROG) 0
-	@echo -n $(DEF)$(FG_BLUE)Compiling $(FG_GREEN)$(NAME)$(DEF) "                                                             "
+	@echo -n $(DEF)$(FG_BLUE)Compiling $(FG_GREEN)$(NAME)$(DEF) "                                                   "
 	@tput cup $(TOP) 0
 	@echo -n "▁▁▁▁▁▁▁▁▁▁"
 	@for file in $(FILES); do \
@@ -95,12 +95,12 @@ progress  : lib
 		fi
 		tput sc
 		tput cup $(FILE) 0
-		echo -n $(FG_GREEN)$$file$(DEF) "                                                    "
+		echo -n $(FG_GREEN)$$file$(DEF) "              "
 		tput rc
 		sleep .01
 	done;
 	@tput cup $(FILE) 0
-	@echo -n "                                                    "
+	@echo -n "              "
 	@$(CC) $(OBJ_DIR)/*.o -o $(NAME) $(LIBFT_LIB) $(INCLUDE) $(LIB) 2>> compil.log
 	@tput cup $(SUCCESS) 0
 	@echo -n $(FG_RED)
@@ -112,7 +112,7 @@ progress  : lib
 progress_vg  : lib
 	@mkdir -p $(OBJ_DIR)
 	@tput cup $(PROG) 0
-	@echo -n $(DEF)$(FG_BLUE)Compiling $(FG_GREEN)$(NAME)$(DEF) "                                                             "
+	@echo -n $(DEF)$(FG_BLUE)Compiling $(FG_GREEN)$(NAME)$(DEF) "                                                   "
 	@tput cup $(TOP) 0
 	@echo -n "▁▁▁▁▁▁▁▁▁▁"
 	@for file in $(FILES); do \
@@ -138,12 +138,12 @@ progress_vg  : lib
 		fi
 		tput sc
 		tput cup $(FILE) 0
-		echo -n $(FG_GREEN)$$file$(DEF) "                                                    "
+		echo -n $(FG_GREEN)$$file$(DEF) "              "
 		tput rc
 		sleep .01
 	done;
 	@tput cup $(FILE) 0
-	@echo -n "                                                    "
+	@echo -n "              "
 	@$(CC) -g3 $(OBJ_DIR)/*.o -o $(NAME) $(LIBFT_LIB) $(INCLUDE) $(LIB) 2>> compil.log
 	@tput cup $(SUCCESS) 0
 	@echo -n $(FG_RED)
@@ -154,7 +154,7 @@ progress_vg  : lib
 
 progress_clean  :
 	@tput cup $(PROG) 0
-	@echo -n $(DEF)$(FG_RED)Cleaning $(FG_GREEN)$(NAME)$(DEF) "                                                            "
+	@echo -n $(DEF)$(FG_RED)Cleaning $(FG_GREEN)$(NAME)$(DEF) "                                                   "
 	@tput cup $(TOP) 0
 	@echo -n "▁▁▁▁▁▁▁▁▁▁"
 	@for file in $(FILES); do \
@@ -176,12 +176,12 @@ progress_clean  :
 		echo -n $(BG_RED)" "$(DEF)
 		tput sc
 		tput cup $(FILE) 0
-		echo -n $(FG_RED)$$file$(DEF) "                                                    "
+		echo -n $(FG_RED)$$file$(DEF) "              "
 		tput rc
 		sleep .02
 	done;
 	@tput cup $(FILE) 0
-	@echo -n "                                                    "
+	@echo -n "              "
 	@rm -rf $(OBJ_DIR)
 	@tput cup $(SUCCESS) 0
 
