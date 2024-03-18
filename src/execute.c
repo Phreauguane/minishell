@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 16:36:08 by jde-meo           #+#    #+#             */
-/*   Updated: 2024/03/05 15:33:56 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/03/18 14:51:12 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,14 @@ void	free_tab(char **tab)
 char	*get_exec(char *cmd, char **envp)
 {
 	char	**paths;
+	char	*paths_no_split;
 	char	*exec;
 	int		i;
 
-	paths = ft_split(get_paths(envp), ':');
+	paths_no_split = get_paths(envp);
+	if (!paths_no_split)
+		return (cmd);
+	paths = ft_split(paths_no_split, ':');
 	i = -1;
 	while (paths[++i] && cmd)
 	{

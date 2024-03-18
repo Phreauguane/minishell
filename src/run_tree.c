@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_tree.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: larz <larz@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 11:11:48 by larz              #+#    #+#             */
-/*   Updated: 2024/03/15 12:06:10 by larz             ###   ########.fr       */
+/*   Updated: 2024/03/18 14:26:10 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	run_nodes(t_node **tree, char ***envp)
 		return (INT_MIN);
 	if ((*tree)->type == TYPE_CMD)
 		return (run_pipeline((*tree)->ppl, envp), g_exec);
-	out1 == run_nodes(&((*tree)->child_1), envp);
+	out1 = run_nodes(&((*tree)->child_1), envp);
 	if ((out1 == 0 && (*tree)->type == TYPE_OR)
 		|| (out1 != 0 && (*tree)->type == TYPE_AND))
 		return (out1);

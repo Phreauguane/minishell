@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:30:38 by larz              #+#    #+#             */
-/*   Updated: 2024/03/17 19:54:49 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/03/18 14:26:38 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,12 +165,15 @@ char		*build_input(char **envp);
 char		*get_input(char *input);
 
 /*	REDIRECT.C		*/
-void		redirect_out_app(t_pipeline **ppl, char **s, int mode);
-void		redirect_out_normal(t_pipeline **ppl, char **s, int mode);
-void		redirect_in_normal(t_pipeline **ppl, char **s, int mode);
+void		redirect_out_app(t_pipeline **ppl, char **s);
+void		redirect_out_normal(t_pipeline **ppl, char **s);
+void		redirect_in_normal(t_pipeline **ppl, char **s);
 
 /*  HEREDOC.C   	*/
-void		heredoc(t_pipeline **ppl, char **s, int mode);
+void		heredoc(t_pipeline **ppl, char **s);
+
+/*	EXIT.C			*/
+void		exit_builtin(t_pipeline *ppl);
 
 /*  ENV.C       	*/
 char		*get_env_value(char *var, char **envp);

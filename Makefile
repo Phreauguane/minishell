@@ -35,7 +35,8 @@ FILES		=	main				\
 				wcard2				\
 				wcard3				\
 				wcard4				\
-				run_tree			
+				run_tree			\
+				exit
 
 NO_OF_FILES := $(words $(FILES))
 
@@ -87,7 +88,7 @@ progress  : lib
 	done;
 	@tput cup $(MID) 10
 	@for file in $(FILES); do
-		cc $(INCLUDE) $(LIB) -c $(SRC_DIR)$$file.c -o $(OBJ_DIR)$$file.o 2>> compil.log
+		$(CC) $(INCLUDE) $(LIB) -c $(SRC_DIR)$$file.c -o $(OBJ_DIR)$$file.o 2>> compil.log
 		if [ "$$?" = "0" ]; then
 			echo -n $(BG_GREEN)" "$(DEF)
 		else
@@ -130,7 +131,7 @@ progress_vg  : lib
 	done;
 	@tput cup $(MID) 10
 	@for file in $(FILES); do
-		cc -g3 $(INCLUDE) $(LIB) -c $(SRC_DIR)$$file.c -o $(OBJ_DIR)$$file.o 2>> compil.log
+		$(CC) -g3 $(INCLUDE) $(LIB) -c $(SRC_DIR)$$file.c -o $(OBJ_DIR)$$file.o 2>> compil.log
 		if [ "$$?" = "0" ]; then
 			echo -n $(BG_GREEN)" "$(DEF)
 		else

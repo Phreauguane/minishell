@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 18:44:46 by jde-meo           #+#    #+#             */
-/*   Updated: 2024/03/05 15:52:12 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/03/18 14:30:32 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ int	comp_cmd(char *cmd, char *builtin)
 
 int	is_builtin(t_pipeline *ppl)
 {
-	if (comp_cmd(ppl->cmd, "cd")
+	if (comp_cmd(ppl->cmd, "exit")
+		|| comp_cmd(ppl->cmd, "cd")
 		|| comp_cmd(ppl->cmd, "env")
 		|| comp_cmd(ppl->cmd, "echo")
 		|| comp_cmd(ppl->cmd, "pwd")
@@ -31,7 +32,9 @@ int	is_builtin(t_pipeline *ppl)
 
 void	run_builtin_cmd(t_pipeline *ppl, char ***envp)
 {
-	if (comp_cmd(ppl->cmd, "cd"))
+	if (comp_cmd(ppl->cmd, "exit"))
+		exit_builtin(ppl);
+	else if (comp_cmd(ppl->cmd, "cd"))
 		g_exec = cd(ppl, *envp);
 	else if (comp_cmd(ppl->cmd, "env"))
 		g_exec = env(*envp);
@@ -52,12 +55,6 @@ int	run_builtin(t_pipeline *ppl, char ***envp)
 
 	if (ppl->cmd == NULL)
 		return (1);
-	else if (comp_cmd(ppl->cmd, "exit"))
-    {
-        ft_printf("exit\n");
-        free_cmd(ppl);
-        return (exit_minishell(1));
-    }
 	if (!is_builtin(ppl))
 		return (0);
 	stdin_bk = dup(STDIN_FILENO);

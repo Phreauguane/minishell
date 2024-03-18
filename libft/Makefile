@@ -1,6 +1,6 @@
 .ONESHELL:
 
-CC = cc
+CC = cc -Wall -Werror -Wextra
 NAME = libft.a
 
 FILES = 	ft_atoi ft_isascii ft_memcmp	\
@@ -29,8 +29,6 @@ FILES = 	ft_atoi ft_isascii ft_memcmp	\
 			ft_lstdelone_bonus 	\
 			ft_lstlast_bonus 		\
 			ft_lstnew_bonus
-
-CFLAGS = -Wall -Werror -Wextra
 
 DEF			=	"\033[0m"
 BG_GREEN	=	"\033[48;2;0;200;0m"
@@ -68,7 +66,7 @@ progress  :
 	done;
 	@tput cup $(MID) 10
 	@for file in $(FILES); do
-		cc -c $$file.c -o $$file.o 2>> ../compil.log
+		$(CC) -c $$file.c -o $$file.o 2>> ../compil.log
 		if [ "$$?" = "0" ]; then
 			echo -n $(BG_GREEN)" "$(DEF)
 		else

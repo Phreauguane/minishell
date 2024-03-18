@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: larz <larz@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:06:36 by jde-meo           #+#    #+#             */
-/*   Updated: 2024/03/13 11:42:45 by larz             ###   ########.fr       */
+/*   Updated: 2024/03/18 14:22:59 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ delimited by end-of-file (wanted \'%s\')\n", lmt);
 	}
 }
 
-void	heredoc(t_pipeline **ppl, char **s, int mode)
+void	heredoc(t_pipeline **ppl, char **s)
 {
 	int		pipe_fd[2];
 	char	*limiter;

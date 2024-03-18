@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 23:32:06 by jde-meo           #+#    #+#             */
-/*   Updated: 2024/03/05 15:30:52 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/03/18 13:36:12 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	add_exec_status(char **s, char **word)
 	char	*val;
 
 	(*s) += 2;
-	val = ft_itoa(g_exec);
+	val = ft_itoa((unsigned char)g_exec);
 	*word = str_adds(*word, val, ft_strlen(val));
 	free2(val);
 }

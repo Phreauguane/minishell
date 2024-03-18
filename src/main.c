@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: larz <larz@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:29:08 by larz              #+#    #+#             */
-/*   Updated: 2024/03/16 17:16:43 by larz             ###   ########.fr       */
+/*   Updated: 2024/03/18 14:36:14 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-int g_exec;
+int	g_exec;
 int	g_stdin;
 int	g_end;
 
@@ -65,11 +65,11 @@ int	main(int ac, char **av, char **envp)
 		if (check_input(line))
 		{
 			ppl = parse(line, env);
-			//print_pipeline(ppl);
 			free2(line);
 			ft_printf(COLOR);
         	run_pipeline(ppl, &env);
 		}
 	}
 	cleanup(env);
+	exit(g_exec);
 }

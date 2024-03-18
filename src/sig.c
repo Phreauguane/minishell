@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 15:42:47 by jde-meo           #+#    #+#             */
-/*   Updated: 2024/03/06 20:43:35 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/03/18 13:19:06 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,9 @@ void	config(char **envp)
 
 int	check_input(char *line)
 {
+	int	i;
+
+	i = 0;
 	if (g_sig == SIGINT)
 	{
 		g_sig = -1;
@@ -54,7 +57,9 @@ int	check_input(char *line)
 		exit_minishell(0);
 		return (0);
 	}
-	if (line == NULL || line[0] == '\0')
+	while (line && ft_isspace(line[i]))
+		i++;
+	if (line == NULL || line[0] == '\0' || line[i] == '\0')
 		return (0);
 	return (1);
 }

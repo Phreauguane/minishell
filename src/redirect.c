@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: larz <larz@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/08 18:09:27 by larz              #+#    #+#             */
-/*   Updated: 2024/03/13 11:43:25 by larz             ###   ########.fr       */
+/*   Created: 2024/02/08 18:09:27 by jde-meo           #+#    #+#             */
+/*   Updated: 2024/03/18 14:22:05 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void	redirect_out_app(t_pipeline **ppl, char **s, int mode)
+void	redirect_out_app(t_pipeline **ppl, char **s)
 {
 	char	*word;
 	
@@ -26,7 +26,7 @@ void	redirect_out_app(t_pipeline **ppl, char **s, int mode)
 	free2(word);
 }
 
-void	redirect_out_normal(t_pipeline **ppl, char **s, int mode)
+void	redirect_out_normal(t_pipeline **ppl, char **s)
 {
 	char	*word;
 	
@@ -40,7 +40,7 @@ void	redirect_out_normal(t_pipeline **ppl, char **s, int mode)
 	free2(word);
 }
 
-void	redirect_in_normal(t_pipeline **ppl, char **s, int mode)
+void	redirect_in_normal(t_pipeline **ppl, char **s)
 {
 	char	*word;
 

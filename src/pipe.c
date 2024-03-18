@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: larz <larz@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 11:36:47 by larz              #+#    #+#             */
-/*   Updated: 2024/03/15 11:28:18 by larz             ###   ########.fr       */
+/*   Updated: 2024/03/18 14:53:12 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@ void	create_pipe(t_pipeline **ppl, char **s, int *mode)
 int	throw_error(t_pipeline *ppl, int err)
 {
 	if (err == ERROR_PARSING)
-		exit_handler("Parsing error", NULL, 0, 1);
+		exit_handler("Parsing error", NULL, 0, 2);
 	if (err == ERROR_NO_CMD)
-		exit_handler("Parsing error", "No command found", 0, 1);
+		exit_handler("Parsing error", "No command found", 0, 2);
 	if (err == ERROR_INVALID_CMD)
-		exit_handler("Command not found", ppl->cmd, 0, 1);
+		exit_handler("Command not found", ppl->cmd, 0, 127);
 	return (err);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: larz <larz@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 17:02:19 by jde-meo           #+#    #+#             */
-/*   Updated: 2024/03/16 17:43:34 by larz             ###   ########.fr       */
+/*   Updated: 2024/03/18 14:33:14 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ char	*run_cmd(char *cmd, char **envp)
 
 void    run(t_pipeline *ppl, char ***envp)
 {
-	int		stat1;
 	pid_t	child;
 
 	if (run_builtin(ppl, envp))
@@ -64,10 +63,10 @@ void    run_pipeline(t_pipeline *ppl, char ***envp)
 	while (!err && p)
 	{
 		status = 0;
-		if (p->error == 0)
+		if (p->error == 0 && p->pid != 0)
 			waitpid(p->pid, &status, 0);
-		if (p->error == 0)
-			g_exec = status;
+		if (p->error == 0 && p->pid != 0)
+			g_exec = WEXITSTATUS(status);
 		p = p->next;
 	}
 	free_ppl(&ppl);

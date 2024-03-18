@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: larz <larz@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 16:10:01 by larz              #+#    #+#             */
-/*   Updated: 2024/03/13 11:39:54 by larz             ###   ########.fr       */
+/*   Updated: 2024/03/18 14:25:04 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,13 +75,13 @@ int	handle_parsing(t_pipeline **ppl, char **s, int *mode, char **envp)
 	if (**s == '|')
 		create_pipe(ppl, s, mode);
 	if (**s == '>' && *(*s + 1) == '>')
-		redirect_out_app(ppl, s, *mode);
+		redirect_out_app(ppl, s);
 	else if (**s == '>')
-		redirect_out_normal(ppl, s, *mode);
+		redirect_out_normal(ppl, s);
 	if (**s == '<' && *(*s + 1) == '<')
-		heredoc(ppl, s, *mode);
+		heredoc(ppl, s);
 	else if (**s == '<')
-		redirect_in_normal(ppl, s, *mode);
+		redirect_in_normal(ppl, s);
 	read_data(ppl, s, mode, envp);
 	return (0);
 }

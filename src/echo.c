@@ -6,11 +6,25 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 18:34:42 by jde-meo           #+#    #+#             */
-/*   Updated: 2024/02/12 17:08:00 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/03/18 13:25:43 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
+
+int	verif_option(char *str)
+{
+	int	i;
+
+	i = 2;
+	if (str[0] != '-' || str[1] != 'n')
+		return (0);
+	while (str[i] == 'n')
+		i++;
+	if (str[i] == '\0')
+		return (1);
+	return (0);
+}
 
 int	echo(t_pipeline *ppl)
 {
@@ -22,7 +36,7 @@ int	echo(t_pipeline *ppl)
 		ft_printf("\n");
 	if (ppl->prm == NULL)
 		return (0);
-	if (ppl->prm->str && ft_strncmp(ppl->prm->str, "-n", 3) == 0)
+	if (ppl->prm->str && verif_option(ppl->prm->str))
 		endl = 0;
 	prm = ppl->prm->next;
 	if (endl)
