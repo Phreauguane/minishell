@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 11:11:48 by larz              #+#    #+#             */
-/*   Updated: 2024/03/18 14:26:10 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/03/19 15:01:21 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ int	run_nodes(t_node **tree, char ***envp)
 	if ((*tree)->type == TYPE_CMD)
 		return (run_pipeline((*tree)->ppl, envp), g_exec);
 	out1 = run_nodes(&((*tree)->child_1), envp);
-	if ((out1 == 0 && (*tree)->type == TYPE_OR)
-		|| (out1 != 0 && (*tree)->type == TYPE_AND))
+	if ((out1 == 0 && (*tree)->type == TYPE_OPP_B)
+		|| (out1 != 0 && (*tree)->type == TYPE_OPP_A))
 		return (out1);
 	return (run_nodes(&((*tree)->child_2), envp));
 }

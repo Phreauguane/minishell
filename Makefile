@@ -36,6 +36,7 @@ FILES		=	main				\
 				wcard3				\
 				wcard4				\
 				run_tree			\
+				tree				\
 				exit
 
 NO_OF_FILES := $(words $(FILES))

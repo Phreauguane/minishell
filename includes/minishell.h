@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:30:38 by larz              #+#    #+#             */
-/*   Updated: 2024/03/19 14:54:50 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/03/19 15:27:55 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,10 @@
 # define TYPE_OPP_A	2
 # define TYPE_OPP_B	3
 
+/*	BINARY TREE FLAGS			*/
+# define NO_PRIORITY	0
+# define PRIORITY		1
+
 /*	GLOBAL VQRIABLES			*/
 /*		LAST COMMAND EXIT STATUS*/
 extern int	g_exec;
@@ -107,6 +111,7 @@ typedef struct s_node
     char            *line;
 	t_pipeline		*ppl;
     int				type;
+	int				prio;
     struct s_node	*child_1;
     struct s_node	*child_2;
     struct s_node	*parent;
@@ -227,5 +232,10 @@ char		*wildcard_word(char *str, char **envp);
 /*	WCARD4.C			*/
 int			verify_first(char *first, char *dir);
 char		**get_ls_verif(char *first, char **envp);
+
+/*	AND_OR.C			*/
+t_node		*add_nodes(t_node *root, char *str, int i);
+t_node		*read_node(char *str, int *i);
+void		add_child(t_node *root, t_node *child);
 
 #endif
