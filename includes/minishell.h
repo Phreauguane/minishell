@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:30:38 by larz              #+#    #+#             */
-/*   Updated: 2024/03/18 14:26:38 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/03/19 14:54:50 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,10 @@
 # define ERROR_PARSING		3
 
 /*	BINARY TREE NODE TYPES		*/
-# define TYPE_CMD	0
-# define TYPE_AND	1
-# define TYPE_OR	2
+# define TYPE_UNDEF	0
+# define TYPE_CMD	1
+# define TYPE_OPP_A	2
+# define TYPE_OPP_B	3
 
 /*	GLOBAL VQRIABLES			*/
 /*		LAST COMMAND EXIT STATUS*/
