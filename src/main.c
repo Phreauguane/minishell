@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:29:08 by larz              #+#    #+#             */
-/*   Updated: 2024/03/19 15:34:26 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/03/20 17:49:15 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ int	main(int ac, char **av, char **envp)
 {
 	char		*line;
 	char		**env;
-	t_pipeline	*ppl;
 
 	g_stdin = dup(STDIN_FILENO);
 	env = dup_envp(envp);
@@ -63,12 +62,7 @@ int	main(int ac, char **av, char **envp)
 		history(line);
 		dup2(g_stdin, STDIN_FILENO);
 		if (check_input(line))
-		{
-			ppl = parse(line, env);
-			free2(line);
-			ft_printf(COLOR);
-        	run_pipeline(ppl, &env);
-		}
+			run_input(line, &env);
 	}
 	cleanup(env);
 	exit(g_exec);

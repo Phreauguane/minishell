@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:30:38 by larz              #+#    #+#             */
-/*   Updated: 2024/03/19 15:27:55 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/03/20 18:38:47 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ typedef struct s_node
 	t_pipeline		*ppl;
     int				type;
 	int				prio;
+	int				error;
     struct s_node	*child_1;
     struct s_node	*child_2;
     struct s_node	*parent;
@@ -156,7 +157,7 @@ char		*get_exec(char *cmd, char **envp);
 
 /*	RUN.C			*/
 void		run(t_pipeline *ppl, char ***envp);
-void		run_pipeline(t_pipeline *ppl, char ***envp);
+void		run_pipeline(t_pipeline **ppl, char ***envp);
 char		*run_cmd(char *cmd, char **envp);
 char		*run_fullcmd(char *cmd, char **envp);
 char		*run_fullcmdprm(char *dir, char *cmd, char **envp);
@@ -233,9 +234,34 @@ char		*wildcard_word(char *str, char **envp);
 int			verify_first(char *first, char *dir);
 char		**get_ls_verif(char *first, char **envp);
 
-/*	AND_OR.C			*/
+/*	TREE.C				*/
 t_node		*add_nodes(t_node *root, char *str, int i);
 t_node		*read_node(char *str, int *i);
 void		add_child(t_node *root, t_node *child);
+char		*get_line_inside(char *str, int *i);
+void		skip_spaces(char *str, int *i);
+void		printTreePreorder(t_node *root);
+
+/*	TREE2.C				*/
+t_node		*createnode();
+void		free_tree(t_node *root);
+t_node		*create_parent(t_node *child, char *line);
+void		or(char *cmd2, t_node *root, char *str, int *i);
+t_node		*create_node(char *cmd);
+
+/*	TREE3.C				*/
+char		*parse_command(char *str, int *i);
+t_node		*manage_parent(char	*cmd1, t_node *root, char *str, int *i);
+void		throw_parsing_error(char *err, char near);
+/*	
+	Takes the line input, creates the corresponding binary tree
+	runs it and frees all allocated memory
+*/
+void		run_input(const char *str, char ***envp);
+
+/*	RUN_TREE.C			*/
+int			parse_tree(t_node **tree, char **envp);
+int			run_nodes(t_node **tree, char ***envp);
+void		run_tree(t_node **tree, char ***envp);
 
 #endif

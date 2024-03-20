@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 17:02:19 by jde-meo           #+#    #+#             */
-/*   Updated: 2024/03/18 15:02:09 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/03/20 17:49:44 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,14 @@ void    run(t_pipeline *ppl, char ***envp)
 	ppl->pid = child;
 }
 
-void    run_pipeline(t_pipeline *ppl, char ***envp)
+void    run_pipeline(t_pipeline **ppl, char ***envp)
 {
     t_pipeline  *p;
 	int			err;
 	int			status;
     
-	p = ppl;
-	err = verif_pipeline(&ppl, *envp);
+	p = *ppl;
+	err = verif_pipeline(ppl, *envp);
 	while (!err && p)
 	{
 		dup2(g_stdin, STDIN_FILENO);
@@ -59,7 +59,7 @@ void    run_pipeline(t_pipeline *ppl, char ***envp)
 			run(p, envp);
 		p = p->next;
 	}
-	p = ppl;
+	p = *ppl;
 	while (!err && p)
 	{
 		status = 0;
@@ -69,7 +69,7 @@ void    run_pipeline(t_pipeline *ppl, char ***envp)
 			g_exec = WEXITSTATUS(status);
 		p = p->next;
 	}
-	free_ppl(&ppl);
+	free_ppl(ppl);
 }
 
 char	*run_fullcmd(char *cmd, char **envp)
