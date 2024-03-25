@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 16:36:08 by jde-meo           #+#    #+#             */
-/*   Updated: 2024/03/25 12:07:12 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/03/25 12:44:48 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ char	*get_exec(char *cmd, char **envp)
 		}
 	}
 	free_tab(paths);
-	return (cmd);
+	return (ft_strdup(cmd));
 }
 
 char	**build_prms(t_pipeline *ppl)
