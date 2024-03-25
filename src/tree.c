@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 14:00:51 by rmidou            #+#    #+#             */
-/*   Updated: 2024/03/20 18:51:55 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/03/25 12:17:48 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ char	*get_line_inside(char *str, int *i)
 		if (str[*i] == '(')
 		{
 			out = get_line_inside(str, i);
-			line = str_addc(str_adds(str_addc(line, '('), out, 
-				ft_strlen(out)), ')');
+			line = str_addc(str_adds(str_addc(line, '('), out,
+						ft_strlen(out)), ')');
 			free2(out);
 		}
 		else
@@ -107,9 +107,11 @@ void	printTreePreorder(t_node *root)
 	{
 		ft_printf("\t{%s}\n", root->line);
 		if (root->child_1)
-			ft_printf("{%s}>child_1 = \'%s\'\n", root->line, root->child_1->line);
+			ft_printf("{%s}>child_1 = \'%s\'\n",
+				root->line, root->child_1->line);
 		if (root->child_2)
-			ft_printf("{%s}>child_2 = \'%s\'\n", root->line, root->child_2->line);
+			ft_printf("{%s}>child_2 = \'%s\'\n", root->line,
+				root->child_2->line);
 		printTreePreorder(root->child_1);
 		printTreePreorder(root->child_2);
 	}

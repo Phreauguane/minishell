@@ -6,21 +6,21 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 21:05:31 by jde-meo           #+#    #+#             */
-/*   Updated: 2024/03/05 15:54:10 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/03/25 12:09:24 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-char    *ft_last_word(char *line)
+char	*ft_last_word(char *line)
 {
-    int        i;
+	int	i;
 
-    i = ft_strlen(line) - 2;
+	i = ft_strlen(line) - 2;
 	line[ft_strlen(line) - 1] = '\0';
-    while (i >= 0 && line[i] && line[i] != ' ')
+	while (i >= 0 && line[i] && line[i] != ' ')
 		i--;
-    return (line + i + 1);
+	return (line + i + 1);
 }
 
 void	run_git2(char *last_word, int lines, char **line)
@@ -29,11 +29,11 @@ void	run_git2(char *last_word, int lines, char **line)
 	*line = str_adds(*line, last_word, ft_strlen(last_word));
 	free2(last_word);
 	if (lines == 4)
-        *line = str_adds(*line, BOLD_BLACK""BG_GREEN"✓ "DEF,
-            ft_strlen(BOLD_BLACK""BG_GREEN"✓ "DEF));
-    else
-        *line = str_adds(*line, BOLD_BLACK""BG_RED"✗ "DEF,
-            ft_strlen(BOLD_BLACK""BG_RED"✗ "DEF));
+		*line = str_adds(*line, BOLD_BLACK""BG_GREEN"✓ "DEF,
+				ft_strlen(BOLD_BLACK""BG_GREEN"✓ "DEF));
+	else
+		*line = str_adds(*line, BOLD_BLACK""BG_RED"✗ "DEF,
+				ft_strlen(BOLD_BLACK""BG_RED"✗ "DEF));
 }
 
 void	execute2(t_pipeline *ppl, char **envp)
@@ -81,10 +81,10 @@ void	run2(t_pipeline *ppl, int *stat, char **envp)
 	waitpid(child1, &stat1, 0);
 	free_ppl(&ppl);
 	dup2(stderr_bk, STDERR_FILENO);
-    *stat = stat1;
+	*stat = stat1;
 }
 
-char    *run_git(char **envp)
+char	*run_git(char **envp)
 {
 	t_pipeline	*ppl;
 	int			pipe_fd[2];

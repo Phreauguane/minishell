@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 19:12:15 by jde-meo           #+#    #+#             */
-/*   Updated: 2024/02/11 21:33:25 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/03/25 12:15:36 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@ void	run_raw(t_pipeline *ppl, char **envp)
 	if (ppl->fd_out != 1)
 		close(ppl->fd_out);
 	waitpid(child1, &stat1, 0);
-    g_exec = stat1;
+	g_exec = stat1;
 }
 
 int	pwd(char **envp)
 {
 	char	*wd;
-	
+
 	wd = get_env_value("PWD", envp);
 	if (wd)
 		ft_printf("%s\n", wd);

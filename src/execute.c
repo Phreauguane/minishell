@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 16:36:08 by jde-meo           #+#    #+#             */
-/*   Updated: 2024/03/18 14:51:12 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/03/25 12:07:12 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,27 +68,27 @@ char	*get_exec(char *cmd, char **envp)
 	return (cmd);
 }
 
-char    **build_prms(t_pipeline *ppl)
+char	**build_prms(t_pipeline *ppl)
 {
-    t_prm   *p;
-    int     size;
-    char    **tab;
+	t_prm	*p;
+	int		size;
+	char	**tab;
 
-    size = 0;
-    p = ppl->prm;
-    while (p && ++size >= 0)
-        p = p->next;
-    tab = malloc(sizeof(char *) * (size + 2));
-    tab[size + 1] = NULL;
-    size = 0;
-    p = ppl->prm;
+	size = 0;
+	p = ppl->prm;
+	while (p && ++size >= 0)
+		p = p->next;
+	tab = malloc(sizeof(char *) * (size + 2));
+	tab[size + 1] = NULL;
+	size = 0;
+	p = ppl->prm;
 	tab[0] = ppl->cmd;
-    while (p)
-    {
-        tab[++size] = p->str;
-        p = p->next;
-    }
-    return (tab);
+	while (p)
+	{
+		tab[++size] = p->str;
+		p = p->next;
+	}
+	return (tab);
 }
 
 void	execute(t_pipeline *ppl, char **envp)

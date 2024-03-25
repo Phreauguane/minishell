@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:06:36 by jde-meo           #+#    #+#             */
-/*   Updated: 2024/03/18 14:22:59 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/03/25 12:13:38 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 void	verify_line(char **line, int in)
 {
 	char	*tmp;
-	
+
 	tmp = NULL;
 	if (!*line || (*line)[ft_strlen(*line) - 1] == '\n')
 		return ;
 	while (!*line || !tmp || (ft_strlen(*line) > 0
-		&& (*line)[ft_strlen(*line) - 1] != '\n'))
+			&& (*line)[ft_strlen(*line) - 1] != '\n'))
 	{
 		dup2(g_stdin, STDIN_FILENO);
 		tmp = get_next_line(in);
@@ -33,12 +33,12 @@ void	verify_line(char **line, int in)
 void	fill_loop(int in, int out, char *limiter, char *lmt)
 {
 	char	*line;
-	
+
 	line = NULL;
 	while (1)
 	{
 		ft_printf(RED"heredoc ["BOLD_WHITE"%s"RED"] "
-		GREEN"> "YELLOW, lmt);
+			GREEN"> "YELLOW, lmt);
 		line = get_next_line(in);
 		verify_line(&line, in);
 		dup2(g_stdin, STDIN_FILENO);
@@ -64,7 +64,7 @@ void	heredoc(t_pipeline **ppl, char **s)
 	(*s) += 2;
 	lmt = get_word(s);
 	if (!lmt || *lmt == '\0')
-		return exit_handler("Parse error, no limiter found", NULL, 0, 1);
+		return (exit_handler("Parse error, no limiter found", NULL, 0, 1));
 	limiter = str_addc(ft_strdup(lmt), '\n');
 	pipe(pipe_fd);
 	get_last(*ppl)->fd_in = pipe_fd[0];

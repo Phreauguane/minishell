@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 16:51:10 by jde-meo           #+#    #+#             */
-/*   Updated: 2024/03/06 21:14:26 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/03/25 12:18:41 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	run3(t_pipeline *ppl, int *stat, char **envp)
 		close(ppl->fd_out);
 	waitpid(child1, &stat1, 0);
 	dup2(stderr_bk, STDERR_FILENO);
-    *stat = stat1;
+	*stat = stat1;
 }
 
 char	*wildcard(char *line, char **envp)
@@ -65,7 +65,7 @@ char	*wildcard(char *line, char **envp)
 	char	*wcard;
 	char	*word;
 	char	*s;
-	
+
 	out = NULL;
 	s = line;
 	while (line && *s)

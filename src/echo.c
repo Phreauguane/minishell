@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 18:34:42 by jde-meo           #+#    #+#             */
-/*   Updated: 2024/03/18 13:25:43 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/03/25 12:06:12 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	echo(t_pipeline *ppl)
 		if (prm->next && prm->str && ft_strlen(prm->str)
 			&& prm->next->str && ft_strlen(prm->next->str))
 			ft_printf(" ");
-		prm = prm->next;	
+		prm = prm->next;
 	}
 	if (endl)
 		ft_printf("\n");

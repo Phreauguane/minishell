@@ -6,15 +6,15 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 17:21:37 by larz              #+#    #+#             */
-/*   Updated: 2024/03/06 20:40:32 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/03/25 12:14:40 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-static char *get_folder_name(char **envp)
+static char	*get_folder_name(char **envp)
 {
-    char    *home_dir;
+	char	*home_dir;
 	char	*path;
 
 	home_dir = get_env_value("HOME", envp);
@@ -48,9 +48,11 @@ char	*build_input(char **envp)
 	line = run_git(envp);
 	out = str_adds(out, line, ft_strlen(line));
 	free2(line);
-    if (g_exec == 0)
-	    out = str_adds(out, BOLD_GREEN" 8=> "CYAN, ft_strlen(BOLD_GREEN" 8=> "CYAN));
-    else
-	    out = str_adds(out, BOLD_RED" 8=> "CYAN, ft_strlen(BOLD_RED" 8=> "CYAN));
+	if (g_exec == 0)
+		out = str_adds(out, BOLD_GREEN" 8=> "CYAN,
+				ft_strlen(BOLD_GREEN" 8=> "CYAN));
+	else
+		out = str_adds(out, BOLD_RED" 8=> "CYAN,
+				ft_strlen(BOLD_RED" 8=> "CYAN));
 	return (out);
 }

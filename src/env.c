@@ -6,13 +6,13 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 15:30:32 by jde-meo           #+#    #+#             */
-/*   Updated: 2024/03/05 15:34:10 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/03/25 12:13:56 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-char    *get_env_value(char *var, char **envp)
+char	*get_env_value(char *var, char **envp)
 {
 	int	i;
 
@@ -68,7 +68,7 @@ void	update_shlvl(char **envp)
 {
 	char	*value;
 	char	*new;
-	
+
 	value = get_env_value("SHLVL", envp);
 	new = ft_itoa(ft_atoi(value) + 1);
 	set_env_value("SHLVL", new, envp);
@@ -84,5 +84,5 @@ int	env(char **envp)
 		return (-1);
 	while (envp[i])
 		ft_printf("%s\n", envp[i++]);
-	return(0);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 11:36:47 by larz              #+#    #+#             */
-/*   Updated: 2024/03/18 14:53:12 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/03/25 12:15:14 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	create_pipe(t_pipeline **ppl, char **s, int *mode)
 	int	pipe_fd[2];
 
 	if (*mode == MODE_NEW_CMD)
-			exit_handler("parsing error near token |", NULL, 0, 2);
+		exit_handler("parsing error near token |", NULL, 0, 2);
 	pipe(pipe_fd);
 	if (get_last(*ppl)->fd_out == STDOUT_FILENO)
 		get_last(*ppl)->fd_out = pipe_fd[1];
@@ -43,7 +43,7 @@ int	throw_error(t_pipeline *ppl, int err)
 int	verif_command(t_pipeline *ppl, char **envp)
 {
 	char		*cmd;
-	
+
 	if (!ppl || ppl->error)
 		return (ERROR_PARSING);
 	if (ppl->cmd == NULL || ppl->cmd[0] == '\0')
@@ -57,7 +57,7 @@ int	verif_command(t_pipeline *ppl, char **envp)
 int	verif_pipeline(t_pipeline **ppl, char **envp)
 {
 	t_pipeline	*p;
-	
+
 	if (!ppl || !(*ppl))
 		return (0);
 	p = *ppl;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wcard3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: larz <larz@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 17:41:36 by jde-meo           #+#    #+#             */
-/*   Updated: 2024/03/13 14:48:34 by larz             ###   ########.fr       */
+/*   Updated: 2024/03/25 12:21:17 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,32 +20,31 @@ void	parse_ls(char **first, char **scd, char *str)
 	while (str[i])
 	{
 		if (str[i] == '/')
-			break;
+			break ;
 		*first = str_addc(*first, str[i]);
 		i++;
 	}
 	if (str[i])
 		i++;
-	while(str[i])
+	while (str[i])
 	{
 		*scd = str_addc(*scd, str[i]);
 		i++;
 	}
 }
 
-char	**get_lsprm(char *dir,char **envp)
+char	**get_lsprm(char *dir, char **envp)
 {
 	int		size;
-	char	*dir2;
 	char	*ls;
 	char	*s;
 	char	*word;
 	char	**out;
 
-	dir2 = ft_strdup(dir);
-	dir2 = str_addc(dir2, '/');
-	ls = run_fullcmdprm(dir2, ft_strdup("ls"), envp);
-	free(dir2);
+	dir = ft_strdup(dir);
+	dir = str_addc(dir, '/');
+	ls = run_fullcmdprm(dir, ft_strdup("ls"), envp);
+	free(dir);
 	size = count_words(ls);
 	out = malloc(sizeof(char *) * (size + 1));
 	out[size] = NULL;
@@ -107,7 +106,7 @@ char	*wildcard_word2(char **tab, char *first, char *scd, char **envp)
 					free(temp);
 			}
 			if (*(tab + 1))
-					out = str_addc(out, ' ');
+				out = str_addc(out, ' ');
 		}
 		tab++;
 	}

@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:29:08 by larz              #+#    #+#             */
-/*   Updated: 2024/03/20 17:49:15 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/03/25 12:03:48 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,4 +67,3 @@ int	main(int ac, char **av, char **envp)
 	cleanup(env);
 	exit(g_exec);
 }
-

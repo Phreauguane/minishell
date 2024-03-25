@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 19:19:16 by jde-meo           #+#    #+#             */
-/*   Updated: 2024/03/05 15:33:47 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/03/25 12:08:29 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,8 @@ void	sort_envp(char **envp)
 		j = i;
 		while (envp[++j])
 		{
-			if (ft_strncmp(envp[i], envp[j], ft_strlen(envp[i]) + ft_strlen(envp[j])) > 0)
+			if (ft_strncmp(envp[i], envp[j],
+					ft_strlen(envp[i]) + ft_strlen(envp[j])) > 0)
 			{
 				tmp = envp[i];
 				envp[i] = envp[j];

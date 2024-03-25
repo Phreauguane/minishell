@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 17:02:19 by jde-meo           #+#    #+#             */
-/*   Updated: 2024/03/20 17:49:44 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/03/25 12:17:06 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*run_cmd(char *cmd, char **envp)
 	return (get_next_line(pipe_fd[0]));
 }
 
-void    run(t_pipeline *ppl, char ***envp)
+void	run(t_pipeline *ppl, char ***envp)
 {
 	pid_t	child;
 
@@ -44,12 +44,12 @@ void    run(t_pipeline *ppl, char ***envp)
 	ppl->pid = child;
 }
 
-void    run_pipeline(t_pipeline **ppl, char ***envp)
+void	run_pipeline(t_pipeline **ppl, char ***envp)
 {
-    t_pipeline  *p;
+	t_pipeline	*p;
 	int			err;
 	int			status;
-    
+
 	p = *ppl;
 	err = verif_pipeline(ppl, *envp);
 	while (!err && p)
@@ -99,7 +99,7 @@ char	*run_fullcmd(char *cmd, char **envp)
 	return (files);
 }
 
-char	*run_fullcmdprm(char *dir,char *cmd, char **envp)
+char	*run_fullcmdprm(char *dir, char *cmd, char **envp)
 {
 	t_pipeline	*ppl;
 	int			pipe_fd[2];
