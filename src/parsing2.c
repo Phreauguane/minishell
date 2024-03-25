@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 23:32:06 by jde-meo           #+#    #+#             */
-/*   Updated: 2024/03/25 12:24:55 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/03/25 14:27:15 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	check_env(char **s, char **word, char **envp)
 {
 	if (**s == '$' && *(*s + 1) == '?')
 		add_exec_status(s, word);
-	else if (**s == '$')
+	else if (**s == '$' && *(*s + 1) != '\0')
 		add_env_var(s, word, envp);
 	else if (**s == '\'' || **s == '\"')
 		add_str(s, word, envp, **s);

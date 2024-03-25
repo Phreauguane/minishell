@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 11:36:47 by larz              #+#    #+#             */
-/*   Updated: 2024/03/25 12:42:00 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/03/25 14:07:48 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int	throw_error(t_pipeline *ppl, int err)
 int	verif_command(t_pipeline *ppl, char **envp)
 {
 	char		*cmd;
+	int			ret;
 
 	if (!ppl || ppl->error)
 		return (ERROR_PARSING);
@@ -50,8 +51,12 @@ int	verif_command(t_pipeline *ppl, char **envp)
 		return (ERROR_NO_CMD);
 	cmd = get_exec(ppl->cmd, envp);
 	if (!is_builtin(ppl) && access(cmd, F_OK | X_OK) != 0)
-		return (free2(cmd), ERROR_INVALID_CMD);
-	return (free2(cmd), NO_ERROR);
+		ret = ERROR_INVALID_CMD;
+	else
+		ret = NO_ERROR;
+	if (cmd != ppl->cmd)
+		free2(cmd);
+	return (ret);
 }
 
 int	verif_pipeline(t_pipeline **ppl, char **envp)

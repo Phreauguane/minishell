@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 15:30:32 by jde-meo           #+#    #+#             */
-/*   Updated: 2024/03/25 12:13:56 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/03/25 13:25:47 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ char	*get_env_value(char *var, char **envp)
 	int	i;
 
 	i = -1;
+	if (!var || !var[0])
+		return ("\0");
 	if (strncmp(var, "?", ft_strlen(var) + 1) == 0)
 		return (ft_itoa(g_exec));
 	while (envp[++i])
@@ -36,6 +38,8 @@ int	find_var(char *var, char **envp)
 	int	i;
 
 	i = -1;
+	if (!var || !var[0])
+		return (0);
 	while (envp[++i])
 		if (strncmp(var, envp[i], ft_strlen(var)) == 0)
 			return (1);
@@ -48,6 +52,8 @@ void	set_env_value(char *var, char *value, char **envp)
 	char	*new_val;
 
 	i = -1;
+	if (!var || !var[0])
+		return ;
 	new_val = str_adds(NULL, var, ft_strlen(var));
 	if (value)
 	{

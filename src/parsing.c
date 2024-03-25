@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 16:10:01 by larz              #+#    #+#             */
-/*   Updated: 2024/03/18 14:25:04 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/03/25 13:43:08 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,11 +74,11 @@ int	handle_parsing(t_pipeline **ppl, char **s, int *mode, char **envp)
 		(*s)++;
 	if (**s == '|')
 		create_pipe(ppl, s, mode);
-	if (**s == '>' && *(*s + 1) == '>')
+	else if (**s == '>' && *(*s + 1) == '>')
 		redirect_out_app(ppl, s);
 	else if (**s == '>')
 		redirect_out_normal(ppl, s);
-	if (**s == '<' && *(*s + 1) == '<')
+	else if (**s == '<' && *(*s + 1) == '<')
 		heredoc(ppl, s);
 	else if (**s == '<')
 		redirect_in_normal(ppl, s);
