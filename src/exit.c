@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 13:28:49 by jde-meo           #+#    #+#             */
-/*   Updated: 2024/03/25 12:07:32 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/03/25 12:25:29 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ int	verif_parameter(char *str)
 void	exit_builtin(t_pipeline *ppl)
 {
 	ft_printf("exit\n");
-	if (ppl->prm && ppl->prm->str &&
-		verif_parameter(ppl->prm->str) && ppl->prm->next == NULL)
+	if (ppl->prm && ppl->prm->str
+		&& verif_parameter(ppl->prm->str) && ppl->prm->next == NULL)
 	{
 		g_exec = ft_atoi(ppl->prm->str);
 		ft_printf("atoi out : %d\n", g_exec);

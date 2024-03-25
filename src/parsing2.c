@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 23:32:06 by jde-meo           #+#    #+#             */
-/*   Updated: 2024/03/18 13:36:12 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/03/25 12:24:55 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,9 @@ void	add_str(char **s, char **word, char **envp, char lim)
 	(*s)++;
 	while (**s && **s != lim)
 	{
-		if (**s == '$' && *(*s + 1) == '?' && lim =='\"')
+		if (**s == '$' && *(*s + 1) == '?' && lim == '\"')
 			add_exec_status(s, word);
-		else if (**s == '$' && lim =='\"')
+		else if (**s == '$' && lim == '\"')
 			add_env_var(s, word, envp);
 		else if (**s != lim)
 			*word = str_addc(*word, *((*s)++));

@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 14:00:51 by rmidou            #+#    #+#             */
-/*   Updated: 2024/03/25 12:17:48 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/03/25 12:24:07 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,20 +99,4 @@ t_node	*add_nodes(t_node *root, char *str, int i)
 		return (add_nodes(root, str, i));
 	else
 		return (root);
-}
-
-void	printTreePreorder(t_node *root)
-{
-	if (root && root->child_1)
-	{
-		ft_printf("\t{%s}\n", root->line);
-		if (root->child_1)
-			ft_printf("{%s}>child_1 = \'%s\'\n",
-				root->line, root->child_1->line);
-		if (root->child_2)
-			ft_printf("{%s}>child_2 = \'%s\'\n", root->line,
-				root->child_2->line);
-		printTreePreorder(root->child_1);
-		printTreePreorder(root->child_2);
-	}
 }
