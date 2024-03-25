@@ -6,7 +6,7 @@
 /*   By: jde-meo <jde-meo@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:30:38 by larz              #+#    #+#             */
-/*   Updated: 2024/03/20 18:38:47 by jde-meo          ###   ########.fr       */
+/*   Updated: 2024/03/25 12:26:49 by jde-meo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,15 +108,15 @@ typedef struct s_pipeline
 /*	BINARY TREE STRUCTURE		*/
 typedef struct s_node
 {
-    char            *line;
+	char			*line;
 	t_pipeline		*ppl;
-    int				type;
+	int				type;
 	int				prio;
 	int				error;
-    struct s_node	*child_1;
-    struct s_node	*child_2;
-    struct s_node	*parent;
-}    t_node;
+	struct s_node	*child_1;
+	struct s_node	*child_2;
+	struct s_node	*parent;
+}	t_node;
 
 /*	MAIN.C			*/
 void		exit_handler(char *msg, char *details, int free_msg, int code);
@@ -210,7 +210,7 @@ char		**dup_envp(char **envp);
 
 /*	UNSET.C			*/
 int			unset(t_pipeline *ppl, char **envp);
-void    	print_pipeline(t_pipeline *ppl);
+void		print_pipeline(t_pipeline *ppl);
 
 /*	GIT.C			*/
 char		*run_git(char **envp);
@@ -243,7 +243,7 @@ void		skip_spaces(char *str, int *i);
 void		printTreePreorder(t_node *root);
 
 /*	TREE2.C				*/
-t_node		*createnode();
+t_node		*createnode(void);
 void		free_tree(t_node *root);
 t_node		*create_parent(t_node *child, char *line);
 void		or(char *cmd2, t_node *root, char *str, int *i);
